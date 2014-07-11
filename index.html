@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head lang="cs">
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />-->
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <meta name="msapplication-tap-highlight" content="no" />
+
+
+    <title>jQuery Mobile Application</title>
+
+    <style>
+        .content div div p {
+            background-color: #ccc;
+            height: 50px;
+            border: 1px solid #333;
+            margin: 0px;
+        }
+    </style>
+
+
+    <script src='libs/fastclick.js'></script>
+
+    <link rel="stylesheet" href="libs/jquery.mobile-1.4.3/jquery.mobile-1.4.3.min.css" />
+    <script src="libs/jquery-2.1.1.min.js"></script>
+
+    <script>
+    //reset type=date inputs to text
+    $(document).bind("mobileinit", function () {
+
+        console.log("mobileinit");
+
+        // RID PAGE TRANSITIONS
+        $.mobile.defaultPageTransition = 'none';
+        $.mobile.defaultDialogTransition = 'none';
+
+        $.mobile.transitionFallbacks.slideout = "none";
+
+        $.mobile.defaultTransition = 'none';
+
+        //$.mobile.useFastClick = true;
+
+
+        $.mobile.page.prototype.options.addBackBtn = true;
+
+
+        $.mobile.page.prototype.options.degradeInputs.date = true;
+
+        console.log("mobileinit - OK");
+    });
+
+
+
+    $(function () {
+        //FastClick.attach(document.body);
+    });
+
+    </script>
+
+    <link rel="stylesheet" href="libs/jquery.ui.datepicker/jquery.ui.datepicker.mobile.css" />
+    <!--<script src="libs/jquery.ui.datepicker/jQuery.ui.datepicker.js"></script>-->
+    <script src="libs/jquery.ui.datepicker/jquery.ui.datepicker.mobile.js"></script>
+
+    <script src="libs/jquery-ui-1.11.0/jquery-ui.min.js"></script>
+
+
+    <script src="libs/jquery.mobile-1.4.3/jquery.mobile-1.4.3.min.js"></script>
+
+
+</head>
+<body>
+
+    <section id="index" data-role="page" data-fullscreen="true">
+
+        <!--PANEL-->
+        <div data-role="panel" id="mainPanel" data-position="left" data-display="overlay" data-theme="a">
+
+                <a href="#" data-role="button" data-rel="close" data-theme="b" data-icon="delete" data-iconpos="left" data-inline="true">Zavřít</a>
+                <a href="nastaveni.html" data-role="button" data-icon="gear" data-iconpos="left">Nastavení</a>
+                <a href="odhlaseni.html" data-role="button" data-icon="delete" data-iconpos="left">Odhlásit se</a>
+
+                <a href="napoveda.html" data-role="button" data-icon="search" data-iconpos="left">Nápověda</a>
+                <a href="o-aplikaci.html" data-role="button" data-icon="info" data-iconpos="left">O aplikaci</a>
+        </div>
+
+
+        <!--HEADER-->
+        <header id="header" data-role="header" data-theme="a" data-position="fixed">
+            <h1>Škola OnLine</h1>
+            <a href="#mainPanel" data-icon="bars">Menu</a>
+            <a href="login.html" data-icon="user" data-iconpos="right" data-rel="dialog" class="ui-btn-right">Přihlásit</a>
+        </header>
+
+
+        <!--CONTENT-->
+        <div class="content" data-role="content">
+            <h3>Hlavní nabídka</h3>
+            <ul data-role="listview" class="ui-listview-inset">
+                <li><a href="rozvrh.html">Rozvrh</a></li>
+                <li><a href="dochazka.html">Zapsat docházku</a></li>
+                <li><a href="hodnoceni.html">Zadat hodnocení</a></li>
+                
+                <li data-role="divider">pokusy</li>
+                <li><a href="neexistuje.html">neexistuje</a></li>
+                <li><a href="main.html">různé prvky</a></li>
+            </ul>
+            
+            
+            <h5 id="orientation">API test: orientationchange není podporováno na daném zařízení</h5>
+
+        </div>
+        
+        
+        <!--FOOTER-->
+        <footer data-role="footer" data-position="fixed"><h1>prototyp</h1></footer>
+
+    </section>
+
+    <script src="js/index.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        $(document)
+                .on("pagecreate", "#index", function(event, ui) {
+                    //console.log("pagecreate index", event, ui, ui.prevPage, ui.nextPage);
+                    //alert("pagecreate index");
+
+                    $(document).on("swiperight swipeleft", "#index", function (event) {
+
+                        //console.log("swiperight");
+
+                        if ($(".ui-page-active").jqmData("panel") !== "open") {
+                            if (event.type === "swiperight" ) {
+                                $("#mainPanel").panel("open");
+                            }
+                        }
+
+
+                    });
+
+                })
+                .on("pagebeforeshow", "#index", function (event, ui) {
+                    //console.log("index before show", event, ui, ui.prevPage, ui.nextPage);
+                })
+                .on("pageshow", "#index", function (event, ui) {
+                    //console.log("index show", event, ui, ui.prevPage, ui.nextPage);
+                })
+                .on("pagebeforeshow", "#second", function (event, ui) {
+                    //console.log("second before show", event, ui, ui.prevPage, ui.nextPage);
+                })
+                .on("pageshow", "#second", function (event, ui) {
+                    //console.log("second show", event, ui, ui.prevPage, ui.nextPage);
+                });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+
+
+        })
+
+
+        // Update configuration to our liking
+        $( document ).on( "mobileinit", function() {
+
+            // We want popups to cover the page behind them with a dark background
+            $.mobile.popup.prototype.options.overlayTheme = "b";
+
+            // Set a namespace for jQuery Mobile data attributes
+            //$.mobile.ns = "jqm-";
+        });
+
+
+        // Bind an event to window.orientationchange that, when the device is turned,
+        // gets the orientation and displays it to on screen.
+        $( window ).on( "orientationchange", function( event ) {
+            $("#orientation").text("API test: zařízení je orientováno v režimu: " + event.orientation);
+        });
+        // You can also manually force this event to fire.
+        $( window ).orientationchange();
+
+    </script>
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript">
+        app.initialize();
+    </script>
+</body>
+</html>
