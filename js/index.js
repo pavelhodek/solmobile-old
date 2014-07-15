@@ -34,6 +34,21 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
+
+
+
+        var element = document.getElementById('deviceProperties');
+        if (element) {
+            element.innerHTML = 'Device Name: ' + device.name + '<br />' +
+                                'Device Cordova: ' + device.cordova + '<br />' +
+                                'Device Platform: ' + device.platform + '<br />' +
+                                'Device UUID: ' + device.uuid + '<br />' +
+                                'Device Version: ' + device.version + '<br />';
+
+        }
+
+
+
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -45,6 +60,6 @@ var app = {
         //receivedElement.setAttribute('style', 'display:block;');
 
 
-        console.log('Received Event: ' + id);
+        //console.log('Received Event: ' + id);
     }
 };

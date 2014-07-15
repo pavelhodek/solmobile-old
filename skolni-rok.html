@@ -1,0 +1,58 @@
+﻿<section id="second" data-role="page">
+    <header data-role="header" data-add-back-btn="true" data-back-btn-text="Zpět">
+        <h1>Škoní rok</h1>
+        <button class="ui-btn-right" data-icon="check" data-iconpos="left" data-theme="b">Uložit</button>
+    </header>
+
+    <div class="content" data-role="content">
+
+        <ul id="skolni-roky-list" data-role="listview" class="ui-listview-inset"></ul>
+
+    </div>
+
+    <footer data-role="footer"><h1>hod</h1></footer>
+
+    <script>
+
+        var isPhoneGap = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
+        if (isPhoneGap) {
+            // PhoneGap application
+            //var serviceURL = "http://10.0.2.2/SOLWebApi/api/";
+            var serviceURL = "http://172.20.2.26/SOLWebApi/api/";
+        } else {
+            // Web page
+            var serviceURL = "http://localhost/SOLWebApi/api/";
+        }
+
+
+
+        $.getJSON(serviceURL + 'SkolniRoky', function (data) {
+            var items = [];
+            //console.log(data);
+
+            $.each(data, function(index, item) {
+                items.push('<li id="' + item.OBDOBI_ID + '">' + item.NAZEV + '</li>');
+            });
+
+            $('#skolni-roky-list').append(items.join(""));
+
+            $('#skolni-roky-list').listview('refresh');
+        });
+
+
+
+
+
+
+
+
+        //$('#movie-list').append('<li><a href="" data-id="' + row.id + '"><img src="http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185'+row.poster_path+'"/><h3>' + row.title + '</h3><p>' + row.vote_average + '/10</p></a></li>'); });
+
+        //$('#movie-list').listview('refresh');
+
+
+    </script>
+
+
+</section>
+

@@ -5,9 +5,15 @@
     <meta charset="utf-8" />
     <meta name="format-detection" content="telephone=no" />
     <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />-->
+    
+    <!--<link rel="stylesheet" type="text/css" href="css/index.css" />-->
     <link rel="stylesheet" type="text/css" href="css/index.css" />
+    
     <meta name="msapplication-tap-highlight" content="no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
 
 
     <title>jQuery Mobile Application</title>
@@ -22,39 +28,58 @@
     </style>
 
 
-    <script src='libs/fastclick.js'></script>
+    <!--<script src='libs/fastclick.js'></script>-->
 
     <link rel="stylesheet" href="libs/jquery.mobile-1.4.3/jquery.mobile-1.4.3.min.css" />
-    <script src="libs/jquery-2.1.1.min.js"></script>
+    <!--<script type="text/javascript" src="libs/jquery-2.1.1.min.js"></script>-->
+    <script type="text/javascript" src="libs/jquery-1.11.1.min.js"></script>
+ 
 
     <script>
+
+        var selectedDate = new Date();
+
+
+
     //reset type=date inputs to text
     $(document).bind("mobileinit", function () {
+        //alert("mobileinit");
+        //console.log("mobileinit");
 
-        console.log("mobileinit");
+        //$/.support.cors = true;
 
-        // RID PAGE TRANSITIONS
-        $.mobile.defaultPageTransition = 'none';
-        $.mobile.defaultDialogTransition = 'none';
+        $.support.cors = true;
 
-        $.mobile.transitionFallbacks.slideout = "none";
-
-        $.mobile.defaultTransition = 'none';
-
-        //$.mobile.useFastClick = true;
+        //$.mobile.allowCrossDomainPages = true;
+        //$.mobile.phonegapNavigationEnabled = true;
 
 
-        $.mobile.page.prototype.options.addBackBtn = true;
+        //// RID PAGE TRANSITIONS
+        //$.mobile.defaultPageTransition = 'none';
+        //$.mobile.defaultDialogTransition = 'none';
+
+        //$.mobile.transitionFallbacks.slideout = "none";
+
+        //$.mobile.defaultTransition = 'none';
+
+        ////$.mobile.useFastClick = true;
 
 
-        $.mobile.page.prototype.options.degradeInputs.date = true;
+        //$.mobile.page.prototype.options.addBackBtn = true;
 
-        console.log("mobileinit - OK");
+
+        //$.mobile.page.prototype.options.degradeInputs.date = true;
+
+        //console.log("mobileinit - OK");
+        //alert("mobileinit - OK");
     });
 
 
 
     $(function () {
+
+        //alert("ok");
+
         //FastClick.attach(document.body);
     });
 
@@ -78,12 +103,15 @@
         <!--PANEL-->
         <div data-role="panel" id="mainPanel" data-position="left" data-display="overlay" data-theme="a">
 
-                <a href="#" data-role="button" data-rel="close" data-theme="b" data-icon="delete" data-iconpos="left" data-inline="true">Zavřít</a>
-                <a href="nastaveni.html" data-role="button" data-icon="gear" data-iconpos="left">Nastavení</a>
-                <a href="odhlaseni.html" data-role="button" data-icon="delete" data-iconpos="left">Odhlásit se</a>
+            <a href="#" data-role="button" data-rel="close" data-theme="b" data-icon="delete" data-iconpos="left" data-inline="true">Zavřít</a>
+            <a href="nastaveni.html" data-role="button" data-icon="gear" data-iconpos="left">Nastavení</a>
+            <a href="skolni-rok.html" data-role="button" data-icon="gear" data-iconpos="left">Školní rok</a>
 
-                <a href="napoveda.html" data-role="button" data-icon="search" data-iconpos="left">Nápověda</a>
-                <a href="o-aplikaci.html" data-role="button" data-icon="info" data-iconpos="left">O aplikaci</a>
+
+            <a href="odhlaseni.html" data-role="button" data-icon="delete" data-iconpos="left">Odhlásit se</a>
+
+            <a href="napoveda.html" data-role="button" data-icon="search" data-iconpos="left">Nápověda</a>
+            <a href="o-aplikaci.html" data-role="button" data-icon="info" data-iconpos="left">O aplikaci</a>
         </div>
 
 
@@ -110,6 +138,10 @@
             
             
             <h5 id="orientation">API test: orientationchange není podporováno na daném zařízení</h5>
+
+            <p id="deviceProperties">Loading device properties...</p>
+
+
 
         </div>
         
@@ -167,6 +199,12 @@
 
             // We want popups to cover the page behind them with a dark background
             $.mobile.popup.prototype.options.overlayTheme = "b";
+
+
+
+
+
+
 
             // Set a namespace for jQuery Mobile data attributes
             //$.mobile.ns = "jqm-";

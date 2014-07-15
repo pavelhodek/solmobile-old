@@ -21,5 +21,21 @@
 
     <footer data-role="footer"><h1>Škola OnLine, a.s.</h1></footer>
 
+
+    <script>
+
+        $("#submitLogin").click(function (event) {
+            var login = $("#login").val();
+            var password = $("#password").val();
+            
+            localStorage.setItem("login", login);
+            localStorage.setItem("password", password);
+
+        });
+
+
+    </script>
+
+
 </section>
 
