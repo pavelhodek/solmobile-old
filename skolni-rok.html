@@ -12,6 +12,8 @@
 
     <footer data-role="footer"><h1>hod</h1></footer>
 
+    <script src="libs/base64.js"></script>
+
     <script>
 
         var isPhoneGap = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
@@ -24,6 +26,31 @@
             var serviceURL = "http://localhost/SOLWebApi/api/";
         }
 
+        
+        var username = localStorage.getItem("username");
+        var password = localStorage.getItem("password");
+
+
+        var basicAuthHash = base64.encode(username + ":" + password); // window.btoa("ada:xx");
+
+
+        //CryptoJS.enc.Base64.stringify("ada:ada");
+
+        //var basicAuthHash = CryptoJS.MD5("ada:ada");
+        //alert(basicAuthHash);
+
+        $.ajaxSetup({
+            headers: {
+                'Authorization': 'Basic ' + basicAuthHash
+            },
+            statusCode: {
+                401: function(jqXHR, textStatus, errorThrown) { 
+                    //self.location = '/Account/Login/'; 
+                    //location.href = "./login.cfm";
+                    $.mobile.changePage('login.html', 'slide', true, true);
+                }
+            }
+        });
 
 
         $.getJSON(serviceURL + 'SkolniRoky', function (data) {

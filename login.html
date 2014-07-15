@@ -1,4 +1,4 @@
-<section id="second" data-role="page" >
+<section id="login" data-role="page" >
     <header data-role="header">
         <h1>Přihlášení do aplikace</h1>
         <a href="index.html" class="ui-btn-right">Zrušit</a>
@@ -6,8 +6,8 @@
 
     <div class="content" data-role="content">
 
-        <label for="login">Uživatelské jméno:</label>
-        <input type="text" name="login" id="login" value="" data-clear-btn="true"  />
+        <label for="username">Uživatelské jméno:</label>
+        <input type="text" name="username" id="username" value="" data-clear-btn="true" />
 
         <label for="password">Heslo:</label>
         <input type="password" name="password" id="password" value="" data-clear-btn="true" />
@@ -25,12 +25,13 @@
     <script>
 
         $("#submitLogin").click(function (event) {
-            var login = $("#login").val();
+            var username = $("#username").val();
             var password = $("#password").val();
             
-            localStorage.setItem("login", login);
+            localStorage.setItem("username", username);
             localStorage.setItem("password", password);
 
+            $("#login").dialog("close");
         });
 
 
