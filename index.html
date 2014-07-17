@@ -28,11 +28,11 @@
     </style>
 
 
-    <!--<script src='libs/fastclick.js'></script>-->
+    <!--<script src='lib/fastclick.js'></script>-->
 
-    <link rel="stylesheet" href="libs/jquery.mobile-1.4.3/jquery.mobile-1.4.3.min.css" />
-    <!--<script type="text/javascript" src="libs/jquery-2.1.1.min.js"></script>-->
-    <script type="text/javascript" src="libs/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="lib/jquery.mobile-1.4.3/jquery.mobile-1.4.3.min.css" />
+    <!--<script type="text/javascript" src="lib/jquery-2.1.1.min.js"></script>-->
+    <script type="text/javascript" src="lib/jquery-1.11.1.min.js"></script>
  
 
     <script>
@@ -74,8 +74,6 @@
         //alert("mobileinit - OK");
     });
 
-
-
     $(function () {
 
         //alert("ok");
@@ -85,20 +83,21 @@
 
     </script>
 
-    <link rel="stylesheet" href="libs/jquery.ui.datepicker/jquery.ui.datepicker.mobile.css" />
-    <!--<script src="libs/jquery.ui.datepicker/jQuery.ui.datepicker.js"></script>-->
-    <script src="libs/jquery.ui.datepicker/jquery.ui.datepicker.mobile.js"></script>
+    <!--<link rel="stylesheet" href="lib/jquery.ui.datepicker/jquery.ui.datepicker.mobile.css" />-->
+    <!--<script src="lib/jquery.ui.datepicker/jQuery.ui.datepicker.js"></script>-->
+    <!--<script src="lib/jquery.ui.datepicker/jquery.ui.datepicker.mobile.js"></script>-->
 
-    <script src="libs/jquery-ui-1.11.0/jquery-ui.min.js"></script>
+    <!--<script src="lib/jquery-ui-1.11.0/jquery-ui.min.js"></script>-->
 
+    <script src="lib/jquery.mobile-1.4.3/jquery.mobile-1.4.3.min.js"></script>
 
-    <script src="libs/jquery.mobile-1.4.3/jquery.mobile-1.4.3.min.js"></script>
+    
 
 
 </head>
-<body>
+<body >
 
-    <section id="index" data-role="page" data-fullscreen="true">
+    <section ng-app="solApp" id="index" data-role="page" data-fullscreen="true">
 
         <!--PANEL-->
         <div data-role="panel" id="mainPanel" data-position="left" data-display="overlay" data-theme="a">
@@ -106,6 +105,8 @@
             <a href="#" data-role="button" data-rel="close" data-theme="b" data-icon="delete" data-iconpos="left" data-inline="true">Zavřít</a>
             <a href="nastaveni.html" data-role="button" data-icon="gear" data-iconpos="left">Nastavení</a>
             <a href="skolni-rok.html" data-role="button" data-icon="gear" data-iconpos="left">Školní rok</a>
+
+            <a href="tabulka.html" data-role="button" data-icon="info" data-iconpos="left">Tabulka - hodnocení</a>
 
 
             <a href="odhlaseni.html" data-role="button" data-icon="delete" data-iconpos="left">Odhlásit se</a>
@@ -130,32 +131,71 @@
                 <li><a href="rozvrh.html">Rozvrh</a></li>
                 <li><a href="dochazka.html">Zapsat docházku</a></li>
                 <li><a href="hodnoceni.html">Zadat hodnocení</a></li>
-                
+
                 <li data-role="divider">pokusy</li>
                 <li><a href="neexistuje.html">neexistuje</a></li>
                 <li><a href="main.html">různé prvky</a></li>
             </ul>
-            
-            
+
+
             <h5 id="orientation">API test: orientationchange není podporováno na daném zařízení</h5>
 
             <p id="deviceProperties">Loading device properties...</p>
 
 
 
+
+            <input type="text" ng-model="pokus" />
+            <div>{{pokus}}</div>
+
+
+            <h4 class="list-inset">Vyberte školní rok</h4>
+
+
+            <ul ng-controller="SkolniRokyCtrl" id="skolni-roky-list2" data-role="listview" class="ui-listview-inset">
+
+                <li class="item item-radio" ng-repeat="rok in skolniRoky">
+                    {{rok.OBDOBI_ID}} - {{rok.NAZEV}}
+                </li>
+
+            </ul>
+
+
         </div>
-        
-        
+
+
         <!--FOOTER-->
         <footer data-role="footer" data-position="fixed"><h1>prototyp</h1></footer>
 
     </section>
 
+
+    <script src="lib/angular-1.2.20/angular.min.js"></script>
+    <script src="lib/angular-1.2.20/angular-route.min.js"></script>
+    <script src="lib/angular-ui-router.min.js"></script>
+     
+
+    <script src="lib/angular-1.2.20/angular-resource.min.js"></script>
+    
+    <!--<script src="lib/angular-1.2.20/angular-sanitize.min.js"></script>
+    <script src="lib/angular-1.2.20/angular-cookies.min.js"></script>
+    <script src="lib/angular-1.2.20/angular-animate.min.js"></script>
+    <script src="lib/angular-1.2.20/angular-loader.min.js"></script>
+    <script src="lib/angular-1.2.20/angular-touch.min.js"></script>-->
+
+    <script src="lib/base64.js"></script>
+
     <script src="js/index.js"></script>
+
     <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
+
+
+    
     <script>
         $(document)
-                .on("pagecreate", "#index", function(event, ui) {
+                .on("pagecreate", "#index", function (event, ui) {
                     //console.log("pagecreate index", event, ui, ui.prevPage, ui.nextPage);
                     //alert("pagecreate index");
 
@@ -164,7 +204,7 @@
                         //console.log("swiperight");
 
                         if ($(".ui-page-active").jqmData("panel") !== "open") {
-                            if (event.type === "swiperight" ) {
+                            if (event.type === "swiperight") {
                                 $("#mainPanel").panel("open");
                             }
                         }
@@ -188,21 +228,25 @@
     </script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
 
 
         })
 
 
         // Update configuration to our liking
-        $( document ).on( "mobileinit", function() {
+        $(document).on("mobileinit", function () {
 
             // We want popups to cover the page behind them with a dark background
             $.mobile.popup.prototype.options.overlayTheme = "b";
 
 
 
-
+            // ANGULAR binding
+            $.mobile.ajaxEnabled = false;
+            $.mobile.linkBindingEnabled = false;
+            $.mobile.hashListeningEnabled = false;
+            $.mobile.pushStateEnabled = false;
 
 
 
@@ -213,18 +257,22 @@
 
         // Bind an event to window.orientationchange that, when the device is turned,
         // gets the orientation and displays it to on screen.
-        $( window ).on( "orientationchange", function( event ) {
+        $(window).on("orientationchange", function (event) {
             $("#orientation").text("API test: zařízení je orientováno v režimu: " + event.orientation);
         });
         // You can also manually force this event to fire.
-        $( window ).orientationchange();
+        $(window).orientationchange();
 
     </script>
 
-    <script type="text/javascript" src="cordova.js"></script>
+    <!--<script type="text/javascript" src="cordova.js"></script>-->
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript">
         app.initialize();
     </script>
+
+
+
 </body>
+
 </html>

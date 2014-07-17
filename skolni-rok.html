@@ -1,20 +1,37 @@
-﻿<section id="second" data-role="page">
+﻿<section ng-app="solApp" id="second" data-role="page">
     <header data-role="header" data-add-back-btn="true" data-back-btn-text="Zpět">
         <h1>Škoní rok</h1>
         <button class="ui-btn-right" data-icon="check" data-iconpos="left" data-theme="b">Uložit</button>
     </header>
 
-    <div class="content" data-role="content">
+    <div ng-controller="SkolniRokyCtrl" class="content" data-role="content">
 
         <ul id="skolni-roky-list" data-role="listview" class="ui-listview-inset"></ul>
+
+
+        <hr />
+
+        <input type="text" ng-model="pokus" />
+        <div>{{pokus}}</div>
+
+        <h4 class="list-inset">Vyberte školní rok</h4>
+
+
+        <ul id="skolni-roky-list2" data-role="listview" class="ui-listview-inset">
+
+            <li class="item item-radio" ng-repeat="rok in skolniRoky">
+                {{rok.OBDOBI_ID}} - {{rok.NAZEV}}
+            </li>
+
+        </ul>
 
     </div>
 
     <footer data-role="footer"><h1>hod</h1></footer>
 
-    <script src="libs/base64.js"></script>
 
     <script>
+
 
         //var isPhoneGap = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
         //if (isPhoneGap) {
@@ -28,7 +45,7 @@
 
         var serviceURL = "http://172.20.2.26/SOLWebApi/api/"
 
-        
+
         var username = localStorage.getItem("username");
         var password = localStorage.getItem("password");
 
@@ -46,8 +63,8 @@
                 'Authorization': 'Basic ' + basicAuthHash
             },
             statusCode: {
-                401: function(jqXHR, textStatus, errorThrown) { 
-                    //self.location = '/Account/Login/'; 
+                401: function (jqXHR, textStatus, errorThrown) {
+                    //self.location = '/Account/Login/';
                     //location.href = "./login.cfm";
                     $.mobile.changePage('login.html', 'slide', true, true);
                 }
@@ -59,7 +76,7 @@
             var items = [];
             //console.log(data);
 
-            $.each(data, function(index, item) {
+            $.each(data, function (index, item) {
                 items.push('<li id="' + item.OBDOBI_ID + '">' + item.NAZEV + '</li>');
             });
 
@@ -84,4 +101,6 @@
 
 
 </section>
+
+
 
