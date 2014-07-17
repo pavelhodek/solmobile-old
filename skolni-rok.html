@@ -16,15 +16,17 @@
 
     <script>
 
-        var isPhoneGap = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
-        if (isPhoneGap) {
-            // PhoneGap application
-            //var serviceURL = "http://10.0.2.2/SOLWebApi/api/";
-            var serviceURL = "http://172.20.2.26/SOLWebApi/api/";
-        } else {
-            // Web page
-            var serviceURL = "http://localhost/SOLWebApi/api/";
-        }
+        //var isPhoneGap = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
+        //if (isPhoneGap) {
+        //    // PhoneGap application
+        //    //var serviceURL = "http://10.0.2.2/SOLWebApi/api/";
+        //    var serviceURL = "http://172.20.2.26/SOLWebApi/api/";
+        //} else {
+        //    // Web page
+        //    var serviceURL = "http://localhost/SOLWebApi/api/";
+        //}
+
+        var serviceURL = "http://172.20.2.26/SOLWebApi/api/"
 
         
         var username = localStorage.getItem("username");
