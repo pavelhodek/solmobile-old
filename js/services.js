@@ -2,18 +2,42 @@
 
 /* Services */
 
-angular.module('sol.services', [])
-.factory('SkolniRokyService', function ($http, $q, AuthorizationService) {
+var solAppServices = angular.module('solApp.services', []);
+
+
+solAppServices.factory('navSvc', function ($navigate) {
+    return {
+        slidePage: function (path, type) {
+            $navigate.go(path, type);
+        },
+        back: function () {
+            $navigate.back();
+        }
+    }
+});
+
+
+solAppServices.factory('SkolniRokyService', function ($http, $q, AuthorizationService) {
     // Might use a resource here that returns a JSON array
 
+
+    // PhoneGap application
+    // Web page
+    // production
+
+    //var serviceURL = "http://10.0.2.2/SOLWebApi/api/";
+    var serviceURL = "http://localhost/SOLWebApi/api/";
     var serviceURL = "http://172.20.2.26/SOLWebApi/api/";
+
 
     return {
         all: function () {
-            //log('SkolniRokyService - all');
+            console.log('SkolniRokyService - all');
             var url = serviceURL + 'SkolniRoky';
 
-            //$http.defaults.headers.common.Authorization = AuthorizationService.getAuthorizationHeader();
+            console.log(AuthorizationService.getAuthorizationHeader());
+
+            $http.defaults.headers.common.Authorization = AuthorizationService.getAuthorizationHeader();
             //return {};
             return $http.get(url);
         }
@@ -22,7 +46,7 @@ angular.module('sol.services', [])
 })
 
 
-.factory('AuthorizationService', function ($http) {
+solAppServices.factory('AuthorizationService', function ($http) {
 
     function setAuthorizationHeader() {
         $http.defaults.headers.common.Authorization = getAuthorizationHeader();

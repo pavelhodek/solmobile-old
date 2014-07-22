@@ -3,7 +3,7 @@
 /* Controllers */
 
 
-angular.module('sol.controllers', [])
+angular.module('solApp.controllers', [])
     .controller('SkolniRokyCtrl', function ($scope, SkolniRokyService) {
         //$scope.skolniRoky = [
         //    { OBDOBI_ID: '1', NAZEV: 'aaa' },
@@ -12,8 +12,37 @@ angular.module('sol.controllers', [])
         //    { OBDOBI_ID: '4', NAZEV: 'ddd' }
         //];
 
-        SkolniRokyService.all().success(function (data) { $scope.skolniRoky = data });
+        SkolniRokyService.all()
+            .success(function (data) { console.log(data); $scope.skolniRoky = data; })
+            .error(function (data) { console.log(data); })
+        ;
+        
     })
+
+    //.controller('HomeCtrl', function ($scope, navSvc, $rootScope) {
+    //    $rootScope.showSettings = false;
+    //    $scope.slidePage = function (path, type) {
+    //        console.log('slidePage');
+    //        navSvc.slidePage(path, type);
+    //        console.log('slidePage - OK');
+    //    };
+    //    $scope.back = function () {
+    //        navSvc.back();
+    //    };
+    //    $scope.changeSettings = function () {
+    //        $rootScope.showSettings = true;
+    //    };
+    //    $scope.closeOverlay = function () {
+    //        $rootScope.showSettings = false;
+    //    };
+
+    //    $scope.openPopup = function (page, popupId){
+    //        $('#' + popupId).html($(page.el)).popup('open');
+    //    }
+
+    //})
+
+
 
 //angular.module('sol.controllers', [])
 //    .controller('SkolniRokyCtrl', function ($scope, SkolniRokyService) {

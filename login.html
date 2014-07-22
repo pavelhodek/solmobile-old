@@ -1,25 +1,29 @@
 <section id="login" data-role="page" >
     <header data-role="header">
-        <h1>Přihlášení do aplikace</h1>
-        <a href="index.html" class="ui-btn-right">Zrušit</a>
+        <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-corner-all"></a>
+        <!--<h1>Přihlášení do aplikace</h1>-->
+        <img src="img/skola-on-line-logo.png" />
+        <!--<a href="index.html" class="ui-btn-right">Zrušit</a>-->
     </header>
 
     <div class="content" data-role="content">
 
-        <label for="username">Uživatelské jméno:</label>
-        <input type="text" name="username" id="username" value="" data-clear-btn="true" />
-
-        <label for="password">Heslo:</label>
-        <input type="password" name="password" id="password" value="" data-clear-btn="true" />
+        <h4>Přihlašovací údaje do Školy OnLine:</h4>
 
 
-        <input name="submitLogin" id="submitLogin" type="submit" value="Přihlásit" data-role="button" data-inline="true" data-theme="b" />
-        <hr/>
-        <label><input type="checkbox" name="rememberLogin" id="rememberLogin" />Zapamatovat</label>
+        <!--<label for="username">Uživatelské jméno:</label>-->
+        <input type="text" name="username" id="username" placeholder="Uživatelské jméno" maxlength="50" value="" data-clear-btn="true" />
+
+        <!--<label for="password">Heslo:</label>-->
+        <input type="password" name="password" id="password" placeholder="Heslo" maxlength="50"  value="" data-clear-btn="true" />
+
+        <label><input type="checkbox" name="rememberLogin" id="rememberLogin" />Zapamatovat heslo</label>
+
+        <input name="submitLogin" id="submitLogin" type="submit" value="Přihlásit" data-role="button" data-inline="true" />
 
     </div>
 
-    <footer data-role="footer"><h1>Škola OnLine, a.s.</h1></footer>
+    <!--<footer data-role="footer"><h1>Škola OnLine, a.s.</h1></footer>-->
 
 
     <script>

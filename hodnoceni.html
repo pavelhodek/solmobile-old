@@ -1,11 +1,99 @@
 ﻿<section id="hodnoceni" data-role="page">
-    <header data-role="header" data-add-back-btn="true" data-back-btn-text="Zpět">
+    <header data-role="header">
+        <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-corner-all"></a>
         <h1>Zápis hodnocení</h1>
+        <p class="sol-subheader">27.7.2014 (3.): ČJL (Český jazyk a literatura) - prostě nějaká rozumně dlouhá informace</p>
     </header>
 
-
     <div class="content" data-role="content">
-        <h1>HODNOCENÍ</h1>
+
+        <div class="content" data-role="content">
+
+            <!--data-mode="reflow"-->
+            <table id="znamky-table" data-role="table" class="ui-responsive table-stripe table-bordered ">
+                <thead>
+                    <tr>
+                        <th>ČVTV</th>
+                        <th>Příjmení a jméno</th>
+                        <th>Známka</th>
+                        <th>Slovní hodnocení</th>
+                    </tr>
+                </thead>
+                <tbody id="znamky-table-body"></tbody>
+            </table>
+
+
+
+        </div>
+
+
+
+
+        <!--FOOTER-->
+        <footer data-role="footer" data-theme="a" data-position="fixed">
+            <table style="width: 100%; text-align: center;">
+                <tr>
+                    <td><a data-role="button">Přednastavit dle předchozí</a></td>
+                    <td><a data-role="button">Uložit</a></td>
+                    <td><a data-role="button">Storno</a></td>
+                </tr>
+            </table>
+
+        </footer>
+
+
+        <script>
+
+            var items = []
+
+
+            var data = [
+            { 'cvtv': '1', 'jmeno': 'Adamová Markéta', 'znamka': '1' },
+            { 'cvtv': '2', 'jmeno': 'Bořek Jaroslav', 'znamka': '2' },
+            { 'cvtv': '3', 'jmeno': 'Cibulka Tomáš', 'znamka': '3' },
+            { 'cvtv': '4', 'jmeno': 'Dálavská Miroslava', 'znamka': '-' },
+            { 'cvtv': '5', 'jmeno': 'Fikus Jan', 'znamka': '2' },
+            { 'cvtv': '6', 'jmeno': 'Gustava Roman', 'znamka': '2' },
+            { 'cvtv': '7', 'jmeno': 'Hrubý Karel', 'znamka': '5' },
+            { 'cvtv': '8', 'jmeno': 'Kalous Michal', 'znamka': '2' },
+            { 'cvtv': '9', 'jmeno': 'Lacko Roman', 'znamka': '-' },
+            { 'cvtv': '10', 'jmeno': 'Malá Jaroslava', 'znamka': '2' },
+            { 'cvtv': '11', 'jmeno': 'Malý Richard', 'znamka': '1' },
+            { 'cvtv': '12', 'jmeno': 'Novák Jan', 'znamka': '1' },
+            { 'cvtv': '13', 'jmeno': 'Novotný Josef', 'znamka': '' },
+            { 'cvtv': '14', 'jmeno': 'Novosad Pavel', 'znamka': '' },
+            { 'cvtv': '15', 'jmeno': 'Opatrný Kamil', 'znamka': '' },
+            { 'cvtv': '16', 'jmeno': 'Patera Jindřich', 'znamka': '' },
+            { 'cvtv': '17', 'jmeno': 'Rázná Pavlína', 'znamka': '' },
+            { 'cvtv': '18', 'jmeno': 'Rychlý Petr', 'znamka': '' },
+            { 'cvtv': '19', 'jmeno': 'Stránská Jaroslava', 'znamka': '' },
+            { 'cvtv': '20', 'jmeno': 'Strákalová Květoslava', 'znamka': '' },
+            { 'cvtv': '21', 'jmeno': 'Tlustý Petr', 'znamka': '' },
+            { 'cvtv': '22', 'jmeno': 'Toulavá Lenka', 'znamka': '' },
+            { 'cvtv': '23', 'jmeno': 'Uhranulá Eva', 'znamka': '' },
+            { 'cvtv': '24', 'jmeno': 'Veselý Roman', 'znamka': '' },
+            { 'cvtv': '25', 'jmeno': 'Wágner Jaroslav', 'znamka': '' },
+            { 'cvtv': '', 'jmeno': '', 'znamka': '' }
+            ];
+
+            //console.log(data);
+
+            $.each(data, function (index, item) {
+                items.push('<tr><td>' + item.cvtv + '</td><td>' + item.jmeno + '</td><td>' + item.znamka + '</td><td><input type="text" /></td>  </tr>');
+            });
+
+            //alert(items.join(""));
+
+
+            $('#znamky-table-body').append(items.join(""));
+
+            //$("#znamky-table").table("rebuild");
+            //$('#znamky-list').listview('refresh');
+
+
+        </script>
+
+
     </div>
 </section>
 

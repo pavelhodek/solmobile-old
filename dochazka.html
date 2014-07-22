@@ -1,11 +1,96 @@
 ﻿<section id="dochazka" data-role="page">
-    <header data-role="header" data-add-back-btn="true" data-back-btn-text="Zpět">
-        <h1>Zápis do třídní knihy</h1>
-    </header>
+    <header data-role="header" >
+        <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-corner-all"></a>
+        <h1>Evidence docházky</h1>
 
+        <p class="sol-subheader">27.7.2014 (3.): ČJL (Český jazyk a literatura) - prostě nějaká rozumně dlouhá informace</p>
+    </header>
 
     <div class="content" data-role="content">
         <h1>DOCHÁZKA</h1>
-    </div>
-</section>
 
+        <!--data-mode="reflow"-->
+        <table id="dochazka-table" data-role="table" class="ui-responsive table-stripe table-bordered ">
+            <thead>
+                <tr>
+                    <th>Třída</th>
+                    <th>ČVTV</th>
+                    <th>Příjmení a jméno</th>
+                    <th>5. hod</th>
+                    <th>Důvod absence</th>
+                </tr>
+            </thead>
+            <tbody id="dochazka-table-data"></tbody>
+        </table>
+
+
+    </div>
+
+
+    <!--FOOTER-->
+    <footer data-role="footer" data-theme="a" data-position="fixed">
+        <table style="width: 100%; text-align: center;">
+            <tr>
+                <td><a data-role="button">Přednastavit dle předchozí</a></td>
+                <td><a data-role="button">Uložit</a></td>
+                <td><a data-role="button">Storno</a></td>
+            </tr>
+        </table>
+
+    </footer>
+
+    <script>
+
+        var items = []
+
+
+        
+
+        var data = [
+        { 'trida': '3.A', 'cvtv': '1', 'jmeno': 'Adamová Markéta', 'duvodAbsence': '', 'hodiny': ['-', ''] },
+        { 'trida': '3.A', 'cvtv': '2', 'jmeno': 'Bořek Jaroslav', 'duvodAbsence': 'nějaký důvod', 'hodiny': ['/', '/'] },
+        { 'trida': '3.A', 'cvtv': '3', 'jmeno': 'Cibulka Tomáš', 'duvodAbsence': '', 'hodiny': ['-', '/'] },
+        { 'trida': '3.A', 'cvtv': '4', 'jmeno': 'Dálavská Miroslava', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+        { 'trida': '3.A', 'cvtv': '5', 'jmeno': 'Fikus Jan', 'duvodAbsence': '', 'hodiny': ['/', '-'] },
+        { 'trida': '3.A', 'cvtv': '6', 'jmeno': 'Gustava Roman', 'duvodAbsence': '', 'hodiny': ['/', '/'] },
+        { 'trida': '3.A', 'cvtv': '7', 'jmeno': 'Hrubý Karel', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+        { 'trida': '3.A', 'cvtv': '8', 'jmeno': 'Kalous Michal', 'duvodAbsence': '', 'hodiny': ['/', '-'] },
+        { 'trida': '3.A', 'cvtv': '9', 'jmeno': 'Lacko Roman', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+        { 'trida': '3.A', 'cvtv': '10', 'jmeno': 'Malá Jaroslava', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+        { 'trida': '3.A', 'cvtv': '11', 'jmeno': 'Malý Richard', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+        { 'trida': '3.A', 'cvtv': '12', 'jmeno': 'Novák Jan', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+        { 'trida': '3.A', 'cvtv': '13', 'jmeno': 'Novotný Josef', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+        { 'trida': '3.B', 'cvtv': '14', 'jmeno': 'Novosad Pavel', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+        { 'trida': '3.B', 'cvtv': '15', 'jmeno': 'Opatrný Kamil', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+        { 'trida': '3.B', 'cvtv': '16', 'jmeno': 'Patera Jindřich', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+        { 'trida': '3.B', 'cvtv': '17', 'jmeno': 'Rázná Pavlína', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+        { 'trida': '3.B', 'cvtv': '18', 'jmeno': 'Rychlý Petr', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+        { 'trida': '3.B', 'cvtv': '19', 'jmeno': 'Stránská Jaroslava', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+        { 'trida': '3.B', 'cvtv': '20', 'jmeno': 'Strákalová Květoslava', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+        { 'trida': '3.B', 'cvtv': '21', 'jmeno': 'Tlustý Petr', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+        { 'trida': '3.B', 'cvtv': '22', 'jmeno': 'Toulavá Lenka', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+        { 'trida': '3.B', 'cvtv': '23', 'jmeno': 'Uhranulá Eva', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+        { 'trida': '3.B', 'cvtv': '24', 'jmeno': 'Veselý Roman', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+        { 'trida': '3.B', 'cvtv': '25', 'jmeno': 'Wágner Jaroslav', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+        { 'trida': '3.B', 'cvtv': '', 'jmeno': '', 'duvodAbsence': '', 'hodiny': ['-', '-'] }
+        ];
+
+            //console.log(data);
+
+        $.each(data, function (index, item) {
+            items.push('<tr><td>' + item.trida + '</td><td>' + item.cvtv + '</td><td>' + item.jmeno + '</td><td><button class="ui-btn ui-mini">' + item.hodiny[0] + '</button></td><td><input type="text" value="' + item.duvodAbsence + '" /></td> </tr>');
+        });
+
+        //alert(items.join(""));
+
+
+        $('#dochazka-table-data').append(items.join(""));
+
+        //$("#znamky-table").table("rebuild");
+            //$('#znamky-list').listview('refresh');
+
+
+    </script>
+
+
+</section>

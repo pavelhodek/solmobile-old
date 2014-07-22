@@ -1,6 +1,4 @@
-﻿<!DOCTYPE html>
-<html>
-<body>
+﻿
 
     <section id="rozvrh" data-role="page">
 
@@ -14,39 +12,51 @@
         <div data-role="popup" id="popupMenu" data-theme="a">
             <ul data-role="listview" data-inset="true" style="min-width:210px;">
                 <!--<li data-role="list-divider">Vyberte akci</li>-->
-                <li><a href="dochazka.html">Zapsat docházku</a></li>
-                <li><a href="hodnoceni.html">Zadat hodnocení</a></li>
+                <li><a href="probirane-ucivo.html">Zadat probírané učivo</a></li>
+                <li><a href="dochazka.html">Zadat docházku</a></li>
+                <li><a href="hodnoceni.html">Nové hodnocení</a></li>
+
             </ul>
         </div>
 
 
         <!--HEADER-->
-        <header data-role="header" data-theme="b" data-position="fixed" data-add-back-btn="true" data-back-btn-text="zpět">
-            <h1>Rozvrh</h1>
-
-            <nav data-role="navbar" class="ui-bar-a">
-                <ul>
-                    <li>
-                        <a href="#" onclick="addSelectedDateDays(-1); refreshSelectedDate()"  class="ui-alt-icon ui-nodisc-icon" data-inline="true" data-theme="a" data-role="button" data-icon="carat-l" data-iconpos="notext"></a>
-                    </li>
-                    <li>
-                        <span id="selectedDate" onclick="selectDate();"></span>
-                    </li>
-                    <li><a href="#" onclick="addSelectedDateDays(1); refreshSelectedDate()" class="ui-nodisc-icon ui-alt-icon" data-theme="a" data-icon="carat-r" data-iconpos="notext"></a></li>
-                </ul>
-
-            </nav>
+        <header data-role="header" data-theme="a" data-position="fixed">
+                <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-corner-all"></a>
+                <h1>Rozvrh</h1>
 
 
-            <!--<nav data-role="navbar" class="ui-bar-a">
-                <a href="#" data-theme="a" data-role="button" data-position="left" data-icon="carat-l" data-iconpos="notext"> << </a>
-                <a href="#" >čtvrtek 10.07.2014</a>
+                <nav data-role="navbar" class="ui-bar-a">
+                    <ul>
+                        <li>
+                            <a href="#" onclick="addSelectedDateDays(-1); refreshSelectedDate()" class="ui-alt-icon ui-nodisc-icon"  data-icon="arrow-l" data-iconpos="notext"></a>
+                        </li>
+                        <li>
+                            <div class="center-wrapper">
+                                <div id="selectedDate" onclick="selectDate();"></div>
+                            </div>
+                            
 
-                <a href="#" class="ui-nodisc-icon" data-icon="carat-r" data-iconpos="notext"> >> </a>
-                <a href="#mainPanel" class="ui-nodisc-icon" data-iconpos="notext" data-icon="bars">Menu</a>
-            </nav>-->
+                            <!--<div class="center-wrapper">
+                                <div id="selectedDate"  onclick="selectDate();"></div>
+                            </div>-->
 
-        </header>
+                        </li>
+                        <li><a href="#" onclick="addSelectedDateDays(1); refreshSelectedDate()" class="ui-nodisc-icon ui-alt-icon" data-icon="arrow-r" data-iconpos="notext"></a></li>
+                    </ul>
+
+                </nav>
+
+
+                <!--<nav data-role="navbar" class="ui-bar-a">
+            <a href="#" data-theme="a" data-role="button" data-position="left" data-icon="carat-l" data-iconpos="notext"> << </a>
+            <a href="#" >čtvrtek 10.07.2014</a>
+
+            <a href="#" class="ui-nodisc-icon" data-icon="carat-r" data-iconpos="notext"> >> </a>
+            <a href="#mainPanel" class="ui-nodisc-icon" data-iconpos="notext" data-icon="bars">Menu</a>
+        </nav>-->
+
+</header>
 
 
         <!--CONTENT-->
@@ -153,10 +163,11 @@
 
 
         <!--FOOTER-->
-        <footer data-role="footer" data-theme="b" data-position="fixed">
-            <h6>Zapsat k aktuální hodině</h6>
+        <footer data-role="footer" data-theme="a" data-position="fixed">
+            <h6>K aktuálně probíhající hodině zadat:</h6>
             <nav data-role="navbar">
                 <ul>
+                    <li><a href="probirane-ucivo.html" data-role="button" data-theme="a">Učivo</a></li>
                     <li><a data-role="button" data-theme="a">Docházku</a></li>
                     <li><a data-role="button" data-theme="a">Hodnocení</a></li>
                 </ul>
@@ -165,7 +176,9 @@
         </footer>
 
 
-        <script>
+        <script src="js/rozvrh.js"></script>
+
+        <!--<script>
             // every time scripts
 
             function selectDate() {
@@ -199,7 +212,8 @@
             }
 
             function padStr(i) {
-                return (i < 10) ? "0" + i : "" + i;
+                //return (i < 10) ? "0" + i : "" + i;
+                return i;
             }
 
 
@@ -231,7 +245,7 @@
             function getDayName(someDate) {
                 //var d = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-                var names = ['neděle', 'pondělí', 'úterý', 'středa', 'čtvrtek', 'pátek', 'sobota'];
+                var names = ['Neděle', 'Pondělí', 'Úterý', 'Středa', 'Čtvrtek', 'Pátek', 'Sobota'];
                 return names[someDate.getDay()];
             }
 
@@ -254,11 +268,8 @@
 
 
 
-        </script>
+        </script>-->
 
 
 
     </section>
-
-</body>
-</html>

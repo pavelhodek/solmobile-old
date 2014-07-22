@@ -1,0 +1,69 @@
+﻿<section id="probirane-ucivo" data-role="page">
+    <header data-role="header">
+        <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-corner-all"></a>
+        <h1>Probírané učivo</h1>
+        
+        <p class="sol-subheader">27.7.2014 (3.): ČJL (Český jazyk a literatura) - prostě nějaká rozumně dlouhá informace</p>
+    </header>
+
+    <div class="content" data-role="content">
+        <!--<h1>PROBÍRANÉ UČIVO</h1>-->
+
+
+        <!--<div data-role="fieldcontain">-->
+
+        <form>
+
+            <div class="ui-field-contain">
+                <label for="select-native-1">Třída</label>
+                <!---->
+                <select name="trida" id="trida"
+                        data-native-menu="false"
+                        multiple="multiple">
+                    <!--<option>Vyberte třídu</option>-->
+                    <option value="1A">1.A</option>
+                    <option value="2A">2.A</option>
+                    <option value="3A">3.A</option>
+                    <option value="4A">4.A</option>
+                </select>
+
+            </div>
+
+
+
+
+            <div class="ui-field-contain">
+                <label for="cisloHodiny">Číslo hodiny</label>
+                <input name="cisloHodiny" id="cisloHodiny" value="" type="text">
+            </div>
+
+            <div class="ui-field-contain">
+                <label for="probiraneUcivo">Probírané učivo</label>
+                <input name="probiraneUcivo" id="probiraneUcivo" value="" type="text">
+            </div>
+
+            <div class="ui-field-contain">
+                <label for="poznamka">Poznámka</label>
+                <textarea name="poznamka" id="poznamka" rows="8">nějaký text</textarea>
+            </div>
+
+            <label><input type="checkbox" name="rememberLogin" id="rememberLogin" />Číslo hodiny a učivo zapsat všem třídám v úvazku</label>
+
+
+        </form>
+    </div>
+
+    <!--FOOTER-->
+    <footer data-role="footer" data-theme="a" data-position="fixed">
+        <table style="width: 100%; text-align: center;">
+            <tr>
+                <td><a data-role="button">Uložit</a></td>
+                <td><a data-role="button">Uložit a zadat docházku</a></td>
+                <td><a data-role="button">Storno</a></td>
+            </tr>
+        </table>
+
+    </footer>
+
+</section>
+
