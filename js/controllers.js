@@ -4,13 +4,26 @@
 
 
 angular.module('solApp.controllers', [])
+
+    .controller('GlobalCtrl', function ($scope, $rootScope) {
+        $rootScope.userName = 'hod';
+        $rootScope.selectedDate = new Date();
+
+        $rootScope.incrementSelectedDate = function () {
+            $rootScope.selectedDate.setDate($rootScope.selectedDate.getDate() + 1);
+        }
+
+        $rootScope.decrementSelectedDate = function () {
+            $rootScope.selectedDate.setDate($rootScope.selectedDate.getDate() - 1);
+        }
+
+        $rootScope.decrementSelectedDate = function (daysToAdd) {
+            $rootScope.selectedDate.setDate($rootScope.selectedDate.getDate() + daysToAdd);
+        }
+
+    })
+
     .controller('SkolniRokyCtrl', function ($scope, SkolniRokyService) {
-        //$scope.skolniRoky = [
-        //    { OBDOBI_ID: '1', NAZEV: 'aaa' },
-        //    { OBDOBI_ID: '2', NAZEV: 'bbb' },
-        //    { OBDOBI_ID: '3', NAZEV: 'ccc' },
-        //    { OBDOBI_ID: '4', NAZEV: 'ddd' }
-        //];
 
         SkolniRokyService.all()
             .success(function (data) { console.log(data); $scope.skolniRoky = data; })
@@ -18,6 +31,51 @@ angular.module('solApp.controllers', [])
         ;
         
     })
+
+    .controller('ZapisHodnoceniCtrl', function ($scope, $rootScope, $log, ZapisHodnoceniService) {
+        $scope.pokus = "ABCD";
+
+        $scope.popisHodiny = '27.7.2014 (3.): ČJL (Český jazyk a literatura) - prostě nějaká rozumně dlouhá informace do záhlaví';
+
+        var udalostID = '';
+
+        var xx = ZapisHodnoceniService.getByUdalostId(udalostID)
+        xx.then(
+            function (result) {
+                //$log.log(result);
+                $scope.data = result;
+            },
+            function (error) {
+                $log.error(error);
+            });
+
+
+            //.success(function (data) {
+            //    $log.log(data);
+            //    $scope.data = data;
+            //})
+            //.error(function (data) {
+            //    $log.error(data);
+            //});
+
+
+
+
+
+        $scope.prednastavitDlePredchozi = function () {
+            $log.info('prednastavitDlePredchozi');
+        };
+
+        $scope.ulozit = function () {
+            $log.info('ulozit');               
+        }
+
+        $scope.storno = function () {
+            $log.info('storno');
+        }
+
+    })
+
 
     //.controller('HomeCtrl', function ($scope, navSvc, $rootScope) {
     //    $rootScope.showSettings = false;

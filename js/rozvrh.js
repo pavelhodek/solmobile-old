@@ -33,7 +33,7 @@
 });
 
 
-var selectedDate;
+var selectedDate = new Date();
 
     function selectDate() {
         var options = {

@@ -5,16 +5,69 @@
 var solAppServices = angular.module('solApp.services', []);
 
 
-solAppServices.factory('navSvc', function ($navigate) {
+//solAppServices.factory('navSvc', function ($navigate) {
+//    return {
+//        slidePage: function (path, type) {
+//            $navigate.go(path, type);
+//        },
+//        back: function () {
+//            $navigate.back();
+//        }
+//    }
+//});
+
+solAppServices.factory('NastaveniService', function ($http, $q, AuthorizationService) {
+
+
+})
+
+
+
+solAppServices.factory('ZapisHodnoceniService', function ($http, $q, AuthorizationService) {
+
+    var data = [
+        { cvtv: '1', jmeno: 'Adamová Markéta', znamka: '1' },
+        { cvtv: '2', jmeno: 'Bořek Jaroslav', znamka: '2' },
+        { cvtv: '3', jmeno: 'Cibulka Tomáš', znamka: '3' },
+        { cvtv: '4', jmeno: 'Dálavská Miroslava', znamka: '-' },
+        { cvtv: '5', jmeno: 'Fikus Jan', znamka: '5' },
+        { cvtv: '6', jmeno: 'Gustava Roman', znamka: '2' },
+        { cvtv: '7', jmeno: 'Hrubý Karel', znamka: '5' },
+        { cvtv: '8', jmeno: 'Kalous Michal', znamka: '2' },
+        { cvtv: '9', jmeno: 'Lacko Roman', znamka: '-' },
+        { cvtv: '10', jmeno: 'Malá Jaroslava', znamka: '2' },
+        { cvtv: '11', jmeno: 'Malý Richard', znamka: '1' },
+        { cvtv: '12', jmeno: 'Novák Jan', znamka: '1' },
+        { cvtv: '13', jmeno: 'Novotný Josef', znamka: '' },
+        { cvtv: '14', jmeno: 'Novosad Pavel', znamka: '' },
+        { cvtv: '15', jmeno: 'Opatrný Kamil', znamka: '' },
+        { cvtv: '16', jmeno: 'Patera Jindřich', znamka: '' },
+        { cvtv: '17', jmeno: 'Rázná Pavlína', znamka: '' },
+        { cvtv: '18', jmeno: 'Rychlý Petr', znamka: '' },
+        { cvtv: '19', jmeno: 'Stránská Jaroslava', znamka: '' },
+        { cvtv: '20', jmeno: 'Strákalová Květoslava', znamka: '' },
+        { cvtv: '21', jmeno: 'Tlustý Petr', znamka: '' },
+        { cvtv: '22', jmeno: 'Toulavá Lenka', znamka: '' },
+        { cvtv: '23', jmeno: 'Uhranulá Eva', znamka: '' },
+        { cvtv: '24', jmeno: 'Veselý Roman', znamka: '' },
+        { cvtv: '25', jmeno: 'Wágner Jaroslav', znamka: '' },
+        { cvtv: '', jmeno: '', znamka: '' }
+        ];
+
+    var deferred = $q.defer();
+
+    deferred.resolve(data);
+
     return {
-        slidePage: function (path, type) {
-            $navigate.go(path, type);
-        },
-        back: function () {
-            $navigate.back();
+        getByUdalostId: function (udalostID) {
+            return deferred.promise;
         }
     }
-});
+    
+
+})
+
+
 
 
 solAppServices.factory('SkolniRokyService', function ($http, $q, AuthorizationService) {

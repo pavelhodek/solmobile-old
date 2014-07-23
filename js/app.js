@@ -1,5 +1,7 @@
 ﻿//'use strict';
 
+var solApp = angular.module('solApp', ['solApp.controllers', 'solApp.services']);
+
 //;var app = (function ($, undefined) {
 //    var self = this;
 
@@ -139,9 +141,6 @@ var app = {
 
         app.receivedEvent('deviceready');
 
-        
-        
-
 
         //var element = document.getElementById('deviceProperties');
         //if (element) {
@@ -184,19 +183,20 @@ var solSidePanel = '\
         <a href="#" data-role="button" data-rel="close" class="ui-btn ui-btn-right ui-btn-icon-notext ui-icon-delete  ui-corner-all" >Zavřít</a> \
     </div> \
     <ul data-role="listview" data-inset="true"> \
-        <li data-icon="home"><a href="index.html">Hlavní stránka</a></li> \
-        <li data-icon="calendar"><a href="rozvrh.html" >Rozvrh</a></li> \
-        <li data-icon="bullets"><a href="probirane-ucivo.html" >Probírané učivo</a></li> \
-        <li data-icon="check"><a href="dochazka.html" >Docházka</a></li> \
-        <li data-icon="grid"><a href="hodnoceni.html" >Hodnocení</a></li> \
-        <li data-icon="false"><a href="skolni-rok.html" data-icon="gear" data-iconpos="left">Školní rok</a></li> \
-        <li data-icon=""><a href="tabulka.html" >Tabulka - hodnocení</a></li> \
+        <li data-icon="home"><a href="#index">Hlavní stránka</a></li> \
+        <li data-icon="calendar"><a href="#rozvrh" >Rozvrh</a></li> \
+        <li data-icon="bullets"><a href="#probirane-ucivo" >Probírané učivo</a></li> \
+        <li data-icon="check"><a href="#dochazka" >Docházka</a></li> \
+        <li data-icon="grid"><a href="#hodnoceni" >Hodnocení</a></li> \
+        <li data-icon="false"><a href="#skolni-rok" data-icon="gear" data-iconpos="left">Školní rok</a></li> \
+        <li data-icon=""><a href="#tabulka" >Tabulka - hodnocení</a></li> \
+        <li data-icon=""><a href="#tabulka-ng" >Tabulka - hodnocení (angular)</a></li> \
         <li data-role="list-divider"></li> \
-        <li data-icon="user"><a href="login.html" >Přihlášení</a></li> \
-        <li data-icon="delete"><a href="odhlaseni.html" >Odhlášení</a></li> \
-        <li data-icon="gear" data-iconpos="left"><a href="nastaveni.html" >Nastavení</a></li> \
-        <li data-icon="search"><a href="napoveda.html" >Nápověda</a></li> \
-        <li data-icon="info"><a href="o-aplikaci.html" >O aplikaci</a></li> \
+        <li data-icon="user"><a href="#login" >Přihlášení</a></li> \
+        <li data-icon="delete"><a href="#odhlaseni" >Odhlášení</a></li> \
+        <li data-icon="gear"><a href="#nastaveni" >Nastavení</a></li> \
+        <li data-icon="search"><a href="#napoveda" >Nápověda</a></li> \
+        <li data-icon="info"><a href="#o-aplikaci" >O aplikaci</a></li> \
     </ul> \
 </div>';
 
@@ -234,7 +234,8 @@ $(document).one('pagebeforecreate', function () {
 //        $http.defaults.headers.common.Authorization = AuthorizationService.getAuthorizationHeader();
 //    })
 
-//var solApp = angular.module('solApp', ['sol.controllers', 'sol.services'])
+
+
 ////var solApp = angular.module('solApp', ['$stateProvider', '$urlRouterProvider', '$locationProvider', 'sol.controllers', 'sol.services'])
 ////var solApp = angular.module('solApp', ['ngTouch', 'ngRoute', 'ui.router', 'solApp.controllers', 'solApp.services', 'ajoslin.mobile-navigate'])
 //    .run(function ($http, AuthorizationService) {

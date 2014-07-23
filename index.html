@@ -19,10 +19,39 @@
 
     <title>Škola OnLine pro učitele</title>
 
-</head>
-<body>
 
-    <section ng-app="solApp" id="index" data-role="page" data-fullscreen="true">
+    <!--JQUERY-->
+    <script type="text/javascript" src="lib/jquery-2.1.1.min.js"></script>
+    <!--<script type="text/javascript" src="lib/jquery-1.11.1.min.js"></script>-->
+    <!--JQUERY MOBILE-->
+    <script src="lib/jquery.mobile-1.4.3/jquery.mobile-1.4.3.min.js"></script>
+
+    <!--CORDOVA-->
+    <script type="text/javascript" src="cordova.js"></script>
+
+    <!--UTILS-->
+    <script src="lib/base64.js"></script>
+
+    <!--ANGULAR-->
+    <script src="lib/angular-1.2.20/angular.js"></script>
+    
+    <!--APP-->
+    <script type="text/javascript" src="js/app.js"></script>
+
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/directives.js"></script>
+    <script src="js/filters.js"></script>
+
+
+
+
+</head>
+<body ng-app="solApp">
+
+
+    <!--INDEX-->
+    <section id="index" data-role="page" data-fullscreen="true">
 
         <!--HEADER-->
         <header id="header" data-role="header" data-theme="a" data-position="fixed">
@@ -30,34 +59,886 @@
             <h1>Škola OnLine pro učitele</h1>
         </header>
 
+        <!--CONTENT-->
+        <div class="content" data-role="content">
+
+            <div ng-controller="GlobalCtrl" ng-view="false">
+
+            </div>
+
+            vše je přístupné z menu v záhlaví
+
+    </section>
+
+
+    <!--LOGIN-->
+    <section id="login" data-role="page">
+        <!--HEADER-->
+        <header data-role="header">
+            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-corner-all"></a>
+            <!--<h1>Přihlášení do aplikace</h1>-->
+            <img src="img/skola-on-line-logo.png" />
+            <!--<a href="#index" class="ui-btn-right">Zrušit</a>-->
+        </header>
 
         <!--CONTENT-->
         <div class="content" data-role="content">
+
+            <h4>Přihlašovací údaje do Školy OnLine:</h4>
+
+
+            <!--<label for="username">Uživatelské jméno:</label>-->
+            <input type="text" name="username" id="username" placeholder="Uživatelské jméno" maxlength="50" value="" data-clear-btn="true" />
+
+            <!--<label for="password">Heslo:</label>-->
+            <input type="password" name="password" id="password" placeholder="Heslo" maxlength="50" value="" data-clear-btn="true" />
+
+            <label><input type="checkbox" name="rememberLogin" id="rememberLogin" />Zapamatovat heslo</label>
+
+            <input name="submitLogin" id="submitLogin" type="submit" value="Přihlásit" data-role="button" data-inline="true" />
+
+        </div>
+
+
+        <script>
+
+            $("#submitLogin").click(function (event) {
+                var username = $("#username").val();
+                var password = $("#password").val();
+
+                localStorage.setItem("username", username);
+                localStorage.setItem("password", password);
+
+                //$("#login").dialog("close");
+                $.mobile.changePage("#index");
+            });
+
+
+        </script>
+    </section>
+
+
+    <!--ROZVRH-->
+    <section id="rozvrh" data-role="page">
+
+
+        <div data-role="popup" id="popupInfo" data-theme="a" style="min-width:210px; max-width: 400px">
+            <p><strong>Detail hodiny</strong></p>
+            <p>Zde může být celá řada dalších informací prakticky libovolně formátovaných, včetně formulářových prvků či tabulek.</p>
+        </div>
+
+
+        <div data-role="popup" id="popupMenu" data-theme="a">
+            <ul data-role="listview" data-inset="true" style="min-width:210px;">
+                <!--<li data-role="list-divider">Vyberte akci</li>-->
+                <li><a href="#probirane-ucivo">Zadat probírané učivo</a></li>
+                <li><a href="#dochazka">Zadat docházku</a></li>
+                <li><a href="#hodnoceni">Nové hodnocení</a></li>
+
+            </ul>
+        </div>
+
+
+        <!--HEADER-->
+        <header data-role="header" data-theme="a" data-position="fixed">
+            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-corner-all"></a>
+            <h1>Rozvrh</h1>
+
+
+            <nav data-role="navbar" class="ui-bar-a">
+                <ul>
+                    <li>
+                        <a href="#" onclick="addSelectedDateDays(-1); refreshSelectedDate()" class="ui-alt-icon ui-nodisc-icon" data-icon="arrow-l" data-iconpos="notext"></a>
+                    </li>
+                    <li>
+                        <div class="center-wrapper">
+                            <div id="selectedDate" onclick="selectDate();"></div>
+                        </div>
+
+
+                        <!--<div class="center-wrapper">
+                            <div id="selectedDate"  onclick="selectDate();"></div>
+                        </div>-->
+
+                    </li>
+                    <li><a href="#" onclick="addSelectedDateDays(1); refreshSelectedDate()" class="ui-nodisc-icon ui-alt-icon" data-icon="arrow-r" data-iconpos="notext"></a></li>
+                </ul>
+
+            </nav>
+
+
+            <!--<nav data-role="navbar" class="ui-bar-a">
+                <a href="#" data-theme="a" data-role="button" data-position="left" data-icon="carat-l" data-iconpos="notext"> << </a>
+                <a href="#" >čtvrtek 10.07.2014</a>
+
+                <a href="#" class="ui-nodisc-icon" data-icon="carat-r" data-iconpos="notext"> >> </a>
+                <a href="#mainPanel" class="ui-nodisc-icon" data-iconpos="notext" data-icon="bars">Menu</a>
+            </nav>-->
+
+        </header>
+
+
+        <!--CONTENT-->
+        <div class="content" data-role="content">
+
+
+            <ul data-role="listview">
+
+                <li>
+                    <a href="#popupMenu" data-rel="popup" data-transition="flip">
+                        <div style="display:table-cell">
+                            <div style="text-align:center">1.</div>
+                            <p>08:00-08:45</p>
+                        </div>
+                        <div style="display:table-cell; padding-left: 20px">
+                            ČJL (Český jazyk a literatura)
+                            <p>UC1, 3.A</p>
+                        </div>
+                    </a>
+                    <a href="#popupInfo" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-info ui-btn-icon-notext" title="Detail hodiny">Detail hodiny</a>
+                </li>
+
+                <li>
+                    <a href="#popupMenu" data-rel="popup" data-transition="flip">
+                        <div style="display:table-cell">
+                            <div style="text-align:center">2.</div>
+                            <p>08:55-09:40</p>
+                        </div>
+                        <div style="display:table-cell; padding-left: 20px">
+                            MAT (Matematika)
+                            <p>UP105, 4.B</p>
+                        </div>
+                    </a>
+                    <a href="#popupInfo" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-info ui-btn-icon-notext" title="Detail hodiny">Detail hodiny</a>
+                </li>
+                <li>
+                    <a href="#popupMenu" data-rel="popup" data-transition="flip">
+                        <div style="display:table-cell">
+                            <div style="text-align:center">5.</div>
+                            <p>12:00-12:45</p>
+                        </div>
+                        <div style="display:table-cell; padding-left: 20px">
+                            TV (Tělesná výchova)
+                            <p>TV1, 3.A Chlapci + 3.B Chlapci</p>
+                        </div>
+                    </a>
+                    <a href="#popupInfo" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-info ui-btn-icon-notext" title="Detail hodiny">Detail hodiny</a>
+                </li>
+                <li>
+                    <a href="#popupMenu" data-rel="popup" data-transition="flip">
+                        <div style="display:table-cell">
+                            <div style="text-align:center">6.</div>
+                            <p>13:05-13:50</p>
+                        </div>
+                        <div style="display:table-cell; padding-left: 20px">
+                            TV (Tělesná výchova)
+                            <p>TV1, 3.A Chlapci + 3.B Chlapci</p>
+                        </div>
+                    </a>
+                    <a href="#popupInfo" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-info ui-btn-icon-notext" title="Detail hodiny">Detail hodiny</a>
+                </li>
+                <li>
+                    <a href="#popupMenu" data-rel="popup" data-transition="flip">
+                        <div style="display:table-cell">
+                            <div style="text-align:center">8.</div>
+                            <p>15:00-15:45</p>
+                        </div>
+                        <div style="display:table-cell; padding-left: 20px">
+                            DĚJ (Dějepis)
+                            <p>UP2, XI.A</p>
+                        </div>
+                    </a>
+                    <a href="#popupInfo" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-info ui-btn-icon-notext" title="Detail hodiny">Detail hodiny</a>
+                </li>
+                <li>
+                    <a href="#popupMenu" data-rel="popup" data-transition="flip">
+                        <div style="display:table-cell">
+                            <div style="text-align:center">9.</div>
+                            <p>16:00-16:45</p>
+                        </div>
+                        <div style="display:table-cell; padding-left: 20px">
+                            CH (Chemie)
+                            <p>LAB1, 8.A</p>
+                        </div>
+                    </a>
+                    <a href="#popupInfo" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-info ui-btn-icon-notext" title="Detail hodiny">Detail hodiny</a>
+                </li>
+                <li>
+                    <a href="#popupMenu" data-rel="popup" data-transition="flip">
+                        <div style="display:table-cell">
+                            <div style="text-align:center">10.</div>
+                            <p>16:50-17:35</p>
+                        </div>
+                        <div style="display:table-cell; padding-left: 20px">
+                            CH (Chemie)
+                            <p>LAB1, 8.A</p>
+                        </div>
+                    </a>
+                    <a href="#popupInfo" data-rel="popup" data-transition="pop" class="my-tooltip-btn ui-btn ui-alt-icon ui-nodisc-icon ui-btn-inline ui-icon-info ui-btn-icon-notext" title="Detail hodiny">Detail hodiny</a>
+                </li>
+            </ul>
 
         </div>
 
 
         <!--FOOTER-->
-        <footer data-role="footer" data-position="fixed">
-            <h1>prototyp</h1>
+        <footer data-role="footer" data-theme="a" data-position="fixed">
+            <h6>K aktuálně probíhající hodině zadat:</h6>
+            <nav data-role="navbar">
+                <ul>
+                    <li><a href="#probirane-ucivo" data-role="button" data-theme="a">Učivo</a></li>
+                    <li><a href="#dochazka" data-role="button" data-theme="a">Docházku</a></li>
+                    <li><a href="#hodnoceni" data-role="button" data-theme="a">Hodnocení</a></li>
+                </ul>
+            </nav>
+
+        </footer>
+
+
+        <script src="js/rozvrh.js"></script>
+
+        <!--<script>
+            // every time scripts
+
+            function selectDate() {
+                var options = {
+                    date: selectedDate, //new Date(),
+                    mode: 'date'
+                };
+
+                datePicker.show(options, function (date) {
+                    alert(date);
+                    alert(date.getTime());
+
+                    if (isNaN(date.getTime())) {
+                        selectedDate = date;
+                    }
+
+
+                    refreshSelectedDate();
+                });
+            }
+
+
+
+            function dateToString(date) {
+                var temp = date || new Date();
+
+                var dateStr = getDayName(temp) + " " + padStr(temp.getDate()) + "." + padStr(1 + temp.getMonth()) + "." + padStr(temp.getFullYear());
+
+                return dateStr;
+                //debug(dateStr);
+            }
+
+            function padStr(i) {
+                //return (i < 10) ? "0" + i : "" + i;
+                return i;
+            }
+
+
+            function addSelectedDateDays(numberOfDaysToAdd) {
+                selectedDate.setDate(selectedDate.getDate() + numberOfDaysToAdd);
+                //console.log(selectedDate);
+            }
+
+            function refreshSelectedDate() {
+                $("#selectedDate").text(dateToString(selectedDate));
+                //console.log("refreshSelectedDate");
+            }
+
+
+            function addDays(someDate, numberOfDaysToAdd) {
+                someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
+            }
+
+
+            function getMonthName(someDate) {
+                //var m = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+                //'August', 'September', 'October', 'November', 'December'];
+                var m = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+                'August', 'September', 'October', 'November', 'December'];
+
+                return m[someDate.getMonth()];
+            }
+
+            function getDayName(someDate) {
+                //var d = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+                var names = ['Neděle', 'Pondělí', 'Úterý', 'Středa', 'Čtvrtek', 'Pátek', 'Sobota'];
+                return names[someDate.getDay()];
+            }
+
+
+
+            function setSelectedDate(date) {
+                selectedDate = date;
+
+                //console.log(selectedDate);
+                //console.log(dateToString(selectedDate));
+
+                $("#selectedDate").val(dateToString(selectedDate));
+            }
+
+
+            //console.log(selectedDate);
+            //console.log(selectedDate.getDate());
+            //console.log(dateToString(selectedDate));
+            $("#selectedDate").text(dateToString(selectedDate));
+
+
+
+        </script>-->
+
+
+
+    </section>
+
+
+    <!--DOCHAZKA-->
+    <section id="dochazka" data-role="page">
+        <header data-role="header">
+            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-corner-all"></a>
+            <h1>Evidence docházky</h1>
+
+            <p class="sol-subheader">27.7.2014 (3.): ČJL (Český jazyk a literatura) - prostě nějaká rozumně dlouhá informace</p>
+        </header>
+
+        <div class="content" data-role="content">
+            <h1>DOCHÁZKA</h1>
+
+            <!--data-mode="reflow"-->
+            <table id="dochazka-table" data-role="table" class="ui-responsive table-stripe table-bordered ">
+                <thead>
+                    <tr>
+                        <th>Třída</th>
+                        <th>ČVTV</th>
+                        <th>Příjmení a jméno</th>
+                        <th>5. hod</th>
+                        <th>Důvod absence</th>
+                    </tr>
+                </thead>
+                <tbody id="dochazka-table-data"></tbody>
+            </table>
+
+        </div>
+
+
+        <!--FOOTER-->
+        <footer data-role="footer" data-theme="a" data-position="fixed">
+            <table style="width: 100%; text-align: center;">
+                <tr>
+                    <td><a data-role="button">Přednastavit dle předchozí</a></td>
+                    <td><a data-role="button">Uložit</a></td>
+                    <td><a data-role="button">Storno</a></td>
+                </tr>
+            </table>
+
+        </footer>
+
+        <script>
+
+            var dochazkaData = [
+            { 'trida': '3.A', 'cvtv': '1', 'jmeno': 'Adamová Markéta', 'duvodAbsence': '', 'hodiny': ['-', ''] },
+            { 'trida': '3.A', 'cvtv': '2', 'jmeno': 'Bořek Jaroslav', 'duvodAbsence': 'nějaký důvod', 'hodiny': ['/', '/'] },
+            { 'trida': '3.A', 'cvtv': '3', 'jmeno': 'Cibulka Tomáš', 'duvodAbsence': '', 'hodiny': ['-', '/'] },
+            { 'trida': '3.A', 'cvtv': '4', 'jmeno': 'Dálavská Miroslava', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+            { 'trida': '3.A', 'cvtv': '5', 'jmeno': 'Fikus Jan', 'duvodAbsence': '', 'hodiny': ['/', '-'] },
+            { 'trida': '3.A', 'cvtv': '6', 'jmeno': 'Gustava Roman', 'duvodAbsence': '', 'hodiny': ['/', '/'] },
+            { 'trida': '3.A', 'cvtv': '7', 'jmeno': 'Hrubý Karel', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+            { 'trida': '3.A', 'cvtv': '8', 'jmeno': 'Kalous Michal', 'duvodAbsence': '', 'hodiny': ['/', '-'] },
+            { 'trida': '3.A', 'cvtv': '9', 'jmeno': 'Lacko Roman', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+            { 'trida': '3.A', 'cvtv': '10', 'jmeno': 'Malá Jaroslava', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+            { 'trida': '3.A', 'cvtv': '11', 'jmeno': 'Malý Richard', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+            { 'trida': '3.A', 'cvtv': '12', 'jmeno': 'Novák Jan', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+            { 'trida': '3.A', 'cvtv': '13', 'jmeno': 'Novotný Josef', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+            { 'trida': '3.B', 'cvtv': '14', 'jmeno': 'Novosad Pavel', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+            { 'trida': '3.B', 'cvtv': '15', 'jmeno': 'Opatrný Kamil', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+            { 'trida': '3.B', 'cvtv': '16', 'jmeno': 'Patera Jindřich', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+            { 'trida': '3.B', 'cvtv': '17', 'jmeno': 'Rázná Pavlína', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+            { 'trida': '3.B', 'cvtv': '18', 'jmeno': 'Rychlý Petr', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+            { 'trida': '3.B', 'cvtv': '19', 'jmeno': 'Stránská Jaroslava', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+            { 'trida': '3.B', 'cvtv': '20', 'jmeno': 'Strákalová Květoslava', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+            { 'trida': '3.B', 'cvtv': '21', 'jmeno': 'Tlustý Petr', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+            { 'trida': '3.B', 'cvtv': '22', 'jmeno': 'Toulavá Lenka', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+            { 'trida': '3.B', 'cvtv': '23', 'jmeno': 'Uhranulá Eva', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+            { 'trida': '3.B', 'cvtv': '24', 'jmeno': 'Veselý Roman', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+            { 'trida': '3.B', 'cvtv': '25', 'jmeno': 'Wágner Jaroslav', 'duvodAbsence': '', 'hodiny': ['-', '-'] },
+            { 'trida': '3.B', 'cvtv': '', 'jmeno': '', 'duvodAbsence': '', 'hodiny': ['-', '-'] }
+            ];
+
+            app.log(dochazkaData);
+
+            var dochazkaItems = [];
+
+            $.each(dochazkaData, function (index, item) {
+                dochazkaItems.push('<tr><td>' + item.trida + '</td><td>' + item.cvtv + '</td><td>' + item.jmeno + '</td><td><button class="ui-btn ui-mini ui-btn-inline" >' + item.hodiny[0] + '</button></td><td><input type="text" value="' + item.duvodAbsence + '" /></td> </tr>');
+            });
+
+            //alert(dochazkaItems.join(""));
+
+
+            $('#dochazka-table-data').append(dochazkaItems.join(""));
+
+            //$('#dochazka-table').table('refresh');
+            //$('#dochazka-table').table('rebuild');
+            //$('#dochazka-table').table('create');
+
+            //$("#znamky-table").table("rebuild");
+            //$('#znamky-list').listview('refresh');
+
+
+        </script>
+
+
+    </section>
+
+
+    <!--HODNOCENI-->
+    <section id="hodnoceni" data-role="page" ng-controller="ZapisHodnoceniCtrl">
+        <header data-role="header">
+            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-corner-all"></a>
+            <h1>Zápis hodnocení</h1>
+            <p class="sol-subheader">{{popisHodiny}}</p>
+        </header>
+
+        <div class="content" data-role="content">
+            <table data-role="table" class="ui-responsive">
+                <thead>
+                    <tr>
+                        <th>ČVTV</th>
+                        <th>Příjmení a jméno</th>
+                        <th>Známka</th>
+                        <th>Slovní hodnocení</th>
+                    </tr>
+                </thead>
+                <tbody id="znamky-table-body">
+                    <tr ng-repeat="radka in data">
+                        <td>{{ radka.cvtv }}</td>
+                        <td>{{ radka.jmeno }}</td>
+                        <td>{{ radka.znamka }}</td>
+                        <td><input type="text" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <!--FOOTER-->
+        <footer data-role="footer" data-theme="a" data-position="fixed">
+            <table style="width: 100%; text-align: center;">
+                <tr>
+                    <td><a data-role="button" ng-click="prednastavitDlePredchozi()">Přednastavit dle předchozí</a></td>
+                    <td><a data-role="button" ng-click="ulozit()">Uložit</a></td>
+                    <td><a data-role="button" ng-click="storno()">Storno</a></td>
+                </tr>
+            </table>
         </footer>
 
     </section>
 
 
-    <!--JQUERY-->
-    <script type="text/javascript" src="lib/jquery-2.1.1.min.js"></script>
-    <!--<script type="text/javascript" src="lib/jquery-1.11.1.min.js"></script>-->
+
+    <!--PROBIRANE-UCIVO-->
+    <section id="probirane-ucivo" data-role="page">
+        <header data-role="header">
+            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-corner-all"></a>
+            <h1>Probírané učivo</h1>
+
+            <p class="sol-subheader">27.7.2014 (3.): ČJL (Český jazyk a literatura) - prostě nějaká rozumně dlouhá informace</p>
+        </header>
+
+        <div class="content" data-role="content">
+            <!--<h1>PROBÍRANÉ UČIVO</h1>-->
+            <!--<div data-role="fieldcontain">-->
+
+            <form>
+
+                <div class="ui-field-contain">
+                    <label for="select-native-1">Třída</label>
+                    <!---->
+                    <select name="trida" id="trida"
+                            data-native-menu="false"
+                            multiple="multiple">
+                        <!--<option>Vyberte třídu</option>-->
+                        <option value="1A">1.A</option>
+                        <option value="2A">2.A</option>
+                        <option value="3A">3.A</option>
+                        <option value="4A">4.A</option>
+                    </select>
+
+                </div>
 
 
-    <!--JQUERY MOBILE-->
-    <script src="lib/jquery.mobile-1.4.3/jquery.mobile-1.4.3.min.js"></script>
 
-    <!--CORDOVA-->
-    <script type="text/javascript" src="cordova.js"></script>
-    
-    <!--APP-->
-    <script type="text/javascript" src="js/app.js"></script>
+
+                <div class="ui-field-contain">
+                    <label for="cisloHodiny">Číslo hodiny</label>
+                    <input name="cisloHodiny" id="cisloHodiny" value="" type="text">
+                </div>
+
+                <div class="ui-field-contain">
+                    <label for="probiraneUcivo">Probírané učivo</label>
+                    <input name="probiraneUcivo" id="probiraneUcivo" value="" type="text">
+                </div>
+
+                <div class="ui-field-contain">
+                    <label for="poznamka">Poznámka</label>
+                    <textarea name="poznamka" id="poznamka" rows="8">nějaký text</textarea>
+                </div>
+
+                <label><input type="checkbox" name="rememberLogin" id="rememberLogin" />Číslo hodiny a učivo zapsat všem třídám v úvazku</label>
+
+
+            </form>
+        </div>
+
+        <!--FOOTER-->
+        <footer data-role="footer" data-theme="a" data-position="fixed">
+            <table style="width: 100%; text-align: center;">
+                <tr>
+                    <td><a data-role="button">Uložit</a></td>
+                    <td><a data-role="button">Uložit a zadat docházku</a></td>
+                    <td><a data-role="button">Storno</a></td>
+                </tr>
+            </table>
+
+        </footer>
+
+    </section>
+
+
+    <!--NAPOVEDA-->
+    <section id="napoveda" data-role="page">
+        <header data-role="header" data-add-back-btn="true" data-back-btn-text="Zpět">
+            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-corner-all"></a>
+            <h1>Nápověda</h1>
+        </header>
+
+
+        <div class="content" data-role="content">
+            <h1>NÁPOVĚDA</h1>
+        </div>
+    </section>
+
+
+    <!--O-APLIKACI-->
+    <section id="o-aplikaci" data-role="page">
+        <header data-role="header">
+            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-corner-all"></a>
+            <h1>O aplikaci</h1>
+        </header>
+
+        <div class="content" data-role="content">
+            <h1>O APLIKACI</h1>
+        </div>
+
+    </section>
+
+
+    <!--NASTAVENI-->
+    <section id="nastaveni" data-role="page">
+        <header data-role="header" data-add-back-btn="true" data-back-btn-text="Zpět">
+            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-corner-all"></a>
+            <h1>Nastavení</h1>
+            <button class="ui-btn-right" data-icon="check" data-iconpos="left" data-theme="b">Uložit</button>
+        </header>
+
+        <div class="content" data-role="content">
+            <p></p>
+
+            <label for="solUrl">URL adresa pro komunikaci:</label>
+            <input type="url" name="solUrl" id="solUrl" value="" data-clear-btn="true" />
+
+            <div data-role="fieldcontain">
+                <a href="#index" data-role="button" data-icon="home" data-iconpos="left" data-inline="true">Home</a>
+
+                <a href="back-button">main</a>
+            </div>
+
+
+        </div>
+
+        <footer data-role="footer"><h1>hod</h1></footer>
+
+    </section>
+
+
+    <!--SKOLNI-ROK-->
+    <section id="skolni-rok" data-role="page">
+        <header data-role="header">
+            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-corner-all"></a>
+            <h1>Škoní rok</h1>
+            <button class="ui-btn-right" data-icon="check" data-iconpos="left" data-theme="b">Uložit</button>
+        </header>
+
+        <div ng-controller="SkolniRokyCtrl" class="content" data-role="content">
+
+            <ul id="skolni-roky-list" data-role="listview" class="ui-listview-inset"></ul>
+
+
+            <hr />
+
+            <input type="text" ng-model="pokus" />
+            <div>{{pokus}}</div>
+
+            <h4 class="list-inset">Vyberte školní rok</h4>
+
+
+            <ul id="skolni-roky-list2" data-role="listview" class="ui-listview-inset">
+
+                <li class="item item-radio" ng-repeat="rok in skolniRoky">
+                    {{rok.OBDOBI_ID}} - {{rok.NAZEV}}
+                </li>
+
+            </ul>
+
+        </div>
+
+        <footer data-role="footer"><h1>hod</h1></footer>
+
+
+        <script>
+
+
+            //var isPhoneGap = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
+            //if (isPhoneGap) {
+            //    // PhoneGap application
+            //    //var serviceURL = "http://10.0.2.2/SOLWebApi/api/";
+            //    var serviceURL = "http://172.20.2.26/SOLWebApi/api/";
+            //} else {
+            //    // Web page
+            //    var serviceURL = "http://localhost/SOLWebApi/api/";
+            //}
+
+            var serviceURL = "http://172.20.2.26/SOLWebApi/api/"
+
+
+            var username = localStorage.getItem("username");
+            var password = localStorage.getItem("password");
+
+
+            var basicAuthHash = base64.encode(username + ":" + password); // window.btoa("ada:xx");
+
+
+            //CryptoJS.enc.Base64.stringify("ada:ada");
+
+            //var basicAuthHash = CryptoJS.MD5("ada:ada");
+            //alert(basicAuthHash);
+
+            $.ajaxSetup({
+                headers: {
+                    'Authorization': 'Basic ' + basicAuthHash
+                },
+                statusCode: {
+                    401: function (jqXHR, textStatus, errorThrown) {
+                        //self.location = '/Account/Login/';
+                        //location.href = "./login.cfm";
+                        $.mobile.changePage('#login', 'slide', true, true);
+                    }
+                }
+            });
+
+
+            $.getJSON(serviceURL + 'SkolniRoky', function (data) {
+                var items = [];
+                //console.log(data);
+
+                $.each(data, function (index, item) {
+                    items.push('<li id="' + item.OBDOBI_ID + '">' + item.NAZEV + '</li>');
+                });
+
+                $('#skolni-roky-list').append(items.join(""));
+
+                //$('#skolni-roky-list').listview('refresh');
+            });
+
+
+
+
+
+
+
+
+            //$('#movie-list').append('<li><a href="" data-id="' + row.id + '"><img src="http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185'+row.poster_path+'"/><h3>' + row.title + '</h3><p>' + row.vote_average + '/10</p></a></li>'); });
+
+            //$('#movie-list').listview('refresh');
+
+
+        </script>
+
+
+    </section>
+
+
+    <!--TABULKA-NG-->
+    <section id="tabulka-ng" data-role="page">
+        <header data-role="header">
+            <a href="#solSidePanel" class="ui-btn ui-btn-left ui-btn-icon-notext ui-icon-bars ui-corner-all"></a>
+            <h1>Hodnocení</h1>
+        </header>
+
+        <div ng-controller="HodnoceniCtrl" class="content" data-role="content">
+
+            <input type="text" ng-model="pokus" />
+            <!--data-mode="reflow"-->
+            {{pokus}}
+
+            <table id="znamky-table" data-role="table" class="ui-responsive">
+                <thead>
+                    <tr>
+                        <th>ČVTV</th>
+                        <th>Příjmení a jméno</th>
+                        <th>Známka</th>
+                        <th>Slovní hodnocení</th>
+                    </tr>
+                </thead>
+                <tbody id="znamky-table-body">
+                    <tr ng-repeat="radka in data">
+                        <td>{{ radka.cvtv }}</td>
+                        <td>{{ radka.jmeno }}</td>
+                        <td>{{ radka.znamka }}</td>
+                        <td><input type="text" /></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!--<script> alert(123);</script>-->
+
+        </div>
+
+
+        <footer data-role="footer"><h1>hod</h1></footer>
+
+        <script>
+
+            var HodnoceniCtrl = function ($scope) {
+
+                //$scope.pokus = "ABCD";
+
+                $scope.data = [
+            { cvtv: '1', jmeno: 'Adamová Markéta', znamka: '1' },
+            { cvtv: '2', jmeno: 'Bořek Jaroslav', znamka: '2' },
+            { cvtv: '3', jmeno: 'Cibulka Tomáš', znamka: '3' },
+            { cvtv: '4', jmeno: 'Dálavská Miroslava', znamka: '-' },
+            { cvtv: '5', jmeno: 'Fikus Jan', znamka: '2' },
+            { cvtv: '6', jmeno: 'Gustava Roman', znamka: '2' },
+            { cvtv: '7', jmeno: 'Hrubý Karel', znamka: '5' },
+            { cvtv: '8', jmeno: 'Kalous Michal', znamka: '2' },
+            { cvtv: '9', jmeno: 'Lacko Roman', znamka: '-' },
+            { cvtv: '10', jmeno: 'Malá Jaroslava', znamka: '2' },
+            { cvtv: '11', jmeno: 'Malý Richard', znamka: '1' },
+            { cvtv: '12', jmeno: 'Novák Jan', znamka: '1' },
+            { cvtv: '13', jmeno: 'Novotný Josef', znamka: '' },
+            { cvtv: '14', jmeno: 'Novosad Pavel', znamka: '' },
+            { cvtv: '15', jmeno: 'Opatrný Kamil', znamka: '' },
+            { cvtv: '16', jmeno: 'Patera Jindřich', znamka: '' },
+            { cvtv: '17', jmeno: 'Rázná Pavlína', znamka: '' },
+            { cvtv: '18', jmeno: 'Rychlý Petr', znamka: '' },
+            { cvtv: '19', jmeno: 'Stránská Jaroslava', znamka: '' },
+            { cvtv: '20', jmeno: 'Strákalová Květoslava', znamka: '' },
+            { cvtv: '21', jmeno: 'Tlustý Petr', znamka: '' },
+            { cvtv: '22', jmeno: 'Toulavá Lenka', znamka: '' },
+            { cvtv: '23', jmeno: 'Uhranulá Eva', znamka: '' },
+            { cvtv: '24', jmeno: 'Veselý Roman', znamka: '' },
+            { cvtv: '25', jmeno: 'Wágner Jaroslav', znamka: '' },
+            { cvtv: '', jmeno: '', znamka: '' }
+                ];
+
+
+                //$scope.$apply();
+
+            }
+
+
+
+        </script>
+
+    </section>
+
+
+    <!--TABULKA-->
+    <section id="tabulka" data-role="page">
+        <header data-role="header" data-add-back-btn="true" data-back-btn-text="Zpět">
+            <h1>Hodnocení</h1>
+        </header>
+
+        <div class="content" data-role="content">
+
+            <!--data-mode="reflow"-->
+            <table id="znamky-table" data-role="table" class="ui-responsive">
+                <thead>
+                    <tr>
+                        <th>ČVTV</th>
+                        <th>Příjmení a jméno</th>
+                        <th>Známka</th>
+                        <th>Slovní hodnocení</th>
+                    </tr>
+                </thead>
+                <tbody id="znamky-table-body"></tbody>
+            </table>
+
+
+
+        </div>
+
+
+
+
+        <footer data-role="footer"><h1>hod</h1></footer>
+
+
+        <script>
+
+            var tabulkaData = [
+            { 'cvtv': '1', 'jmeno': 'Adamová Markéta', 'znamka': '1' },
+            { 'cvtv': '2', 'jmeno': 'Bořek Jaroslav', 'znamka': '2' },
+            { 'cvtv': '3', 'jmeno': 'Cibulka Tomáš', 'znamka': '3' },
+            { 'cvtv': '4', 'jmeno': 'Dálavská Miroslava', 'znamka': '-' },
+            { 'cvtv': '5', 'jmeno': 'Fikus Jan', 'znamka': '2' },
+            { 'cvtv': '6', 'jmeno': 'Gustava Roman', 'znamka': '2' },
+            { 'cvtv': '7', 'jmeno': 'Hrubý Karel', 'znamka': '5' },
+            { 'cvtv': '8', 'jmeno': 'Kalous Michal', 'znamka': '2' },
+            { 'cvtv': '9', 'jmeno': 'Lacko Roman', 'znamka': '-' },
+            { 'cvtv': '10', 'jmeno': 'Malá Jaroslava', 'znamka': '2' },
+            { 'cvtv': '11', 'jmeno': 'Malý Richard', 'znamka': '1' },
+            { 'cvtv': '12', 'jmeno': 'Novák Jan', 'znamka': '1' },
+            { 'cvtv': '13', 'jmeno': 'Novotný Josef', 'znamka': '' },
+            { 'cvtv': '14', 'jmeno': 'Novosad Pavel', 'znamka': '' },
+            { 'cvtv': '15', 'jmeno': 'Opatrný Kamil', 'znamka': '' },
+            { 'cvtv': '16', 'jmeno': 'Patera Jindřich', 'znamka': '' },
+            { 'cvtv': '17', 'jmeno': 'Rázná Pavlína', 'znamka': '' },
+            { 'cvtv': '18', 'jmeno': 'Rychlý Petr', 'znamka': '' },
+            { 'cvtv': '19', 'jmeno': 'Stránská Jaroslava', 'znamka': '' },
+            { 'cvtv': '20', 'jmeno': 'Strákalová Květoslava', 'znamka': '' },
+            { 'cvtv': '21', 'jmeno': 'Tlustý Petr', 'znamka': '' },
+            { 'cvtv': '22', 'jmeno': 'Toulavá Lenka', 'znamka': '' },
+            { 'cvtv': '23', 'jmeno': 'Uhranulá Eva', 'znamka': '' },
+            { 'cvtv': '24', 'jmeno': 'Veselý Roman', 'znamka': '' },
+            { 'cvtv': '25', 'jmeno': 'Wágner Jaroslav', 'znamka': '' },
+            { 'cvtv': '', 'jmeno': '', 'znamka': '' }
+            ];
+
+            //console.log(data);
+
+            var tabulkaItems = [];
+
+            $.each(tabulkaData, function (index, item) {
+                tabulkaItems.push('<tr><td>' + item.cvtv + '</td><td>' + item.jmeno + '</td><td>' + item.znamka + '</td><td><input type="text" /></td>  </tr>');
+            });
+
+            //alert(items.join(""));
+
+
+            $('#znamky-table-body').append(tabulkaItems.join(""));
+
+            //$("#znamky-table").table("rebuild");
+            //$('#znamky-list').listview('refresh');
+
+
+        </script>
+
+
+    </section>
 
 
 
@@ -89,6 +970,7 @@
         app.initialize();
 
         window.onerror = function (x) {
+            alert("nastala chyba");
             alert(x);
         }
     </script>
