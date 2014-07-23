@@ -4,11 +4,11 @@
 ; jQuery(function ($) {
     $(document)
         .on("pagecreate", "#rozvrh", function (event, ui) {
-            console.log("create rozvrh");
+            app.log("create rozvrh");
 
             $("#rozvrh")
                 .swipeleft(function (event) {
-                    console.log("swipeleft");
+                    app.log("swipeleft");
                     event.stopImmediatePropagation();
                     event.stopPropagation();
                     event.preventDefault();
@@ -19,7 +19,7 @@
                     //$.mobile.pageContainer.pagecontainer("change", "dochazka.html", {});
                 })
                 .swiperight(function (event) {
-                    console.log("swiperight");
+                    app.log("swiperight");
                     event.stopImmediatePropagation();
                     event.stopPropagation();
                     event.preventDefault();
@@ -72,12 +72,12 @@ function padStr(i) {
 
 function addSelectedDateDays(numberOfDaysToAdd) {
     selectedDate.setDate(selectedDate.getDate() + numberOfDaysToAdd);
-    //console.log(selectedDate);
+    //app.log(selectedDate);
 }
 
 function refreshSelectedDate() {
     $("#selectedDate").text(dateToString(selectedDate));
-    //console.log("refreshSelectedDate");
+    //app.log("refreshSelectedDate");
 }
 
 
@@ -107,15 +107,15 @@ function getDayName(someDate) {
 function setSelectedDate(date) {
     selectedDate = date;
 
-    //console.log(selectedDate);
-    //console.log(dateToString(selectedDate));
+    //app.log(selectedDate);
+    //app.log(dateToString(selectedDate));
 
     $("#selectedDate").val(dateToString(selectedDate));
 }
 
 
-//console.log(selectedDate);
-//console.log(selectedDate.getDate());
-//console.log(dateToString(selectedDate));
+//app.log(selectedDate);
+//app.log(selectedDate.getDate());
+//app.log(dateToString(selectedDate));
 $("#selectedDate").text(dateToString(selectedDate));
 

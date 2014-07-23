@@ -78,13 +78,17 @@
             //console.log(data);
 
         $.each(data, function (index, item) {
-            items.push('<tr><td>' + item.trida + '</td><td>' + item.cvtv + '</td><td>' + item.jmeno + '</td><td><button class="ui-btn ui-mini">' + item.hodiny[0] + '</button></td><td><input type="text" value="' + item.duvodAbsence + '" /></td> </tr>');
+            items.push('<tr><td>' + item.trida + '</td><td>' + item.cvtv + '</td><td>' + item.jmeno + '</td><td><button class="ui-btn ui-mini ui-btn-inline" >' + item.hodiny[0] + '</button></td><td><input type="text" value="' + item.duvodAbsence + '" /></td> </tr>');
         });
 
         //alert(items.join(""));
 
 
         $('#dochazka-table-data').append(items.join(""));
+
+        //$('#dochazka-table').table('refresh');
+        //$('#dochazka-table').table('rebuild');
+        //$('#dochazka-table').table('create');
 
         //$("#znamky-table").table("rebuild");
             //$('#znamky-list').listview('refresh');
