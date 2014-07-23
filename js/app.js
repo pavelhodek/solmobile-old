@@ -1,140 +1,55 @@
 ﻿//'use strict';
 
-;var app = (function ($, undefined) {
-    var self = this;
+//;var app = (function ($, undefined) {
+//    var self = this;
 
-    var log = function (message) {
-        if (window && window.console && window.console.log) {
-            window.console.log(message);
-        }
-    };
+//    var log = function (message) {
+//        if (window && window.console && window.console.log) {
+//            window.console.log(message);
+//        }
+//    };
 
-    var deviceReadyDeferred = $.Deferred();
-    var jqmReadyDeferred = $.Deferred();
+//    var deviceReadyDeferred = $.Deferred();
+//    var jqmReadyDeferred = $.Deferred();
 
-
-    // APPLICATION CONSTRUCTOR
-    var initialize = function () {
-        log("initialize");
-
-
-        bindEvents();
-    };
-
-
-    // BIND EVENT LISTENERS
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
-    var bindEvents = function () {
-        log("bindEvents");
-        document.addEventListener('deviceReady', onDeviceReady, false);
-
-
-        $(document).on("mobileinit", function () {
-            log("mobileinit");
-            jqmReadyDeferred.resolve();
-        });
-
-        $.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenAllFrameworksLoaded);
-        log("bindEvents - ok");
-    };
-
-    // DEVICEREADY EVENT HANDLER
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicitly call 'app.receivedEvent(...);'
-    var onDeviceReady = function () {
-        log("onDeviceReady");
-
-        deviceReadyDeferred.resolve();
-
-        receivedEvent('deviceready');
-
-
-        //var element = document.getElementById('deviceProperties');
-        //if (element) {
-        //    element.innerHTML = 'Device Name: ' + device.name + '<br />' +
-        //                        'Device Cordova: ' + device.cordova + '<br />' +
-        //                        'Device Platform: ' + device.platform + '<br />' +
-        //                        'Device UUID: ' + device.uuid + '<br />' +
-        //                        'Device Version: ' + device.version + '<br />';
-
-        //}
-
-
-    };
-
-    // UPDATE DOM ON A RECEIVED EVENT
-    var receivedEvent = function (id) {
-        //var parentElement = document.getElementById(id);
-        //var listeningElement = parentElement.querySelector('.listening');
-        //var receivedElement = parentElement.querySelector('.received');
-
-        //listeningElement.setAttribute('style', 'display:none;');
-        //receivedElement.setAttribute('style', 'display:block;');
-
-
-        //log('Received Event: ' + id);
-    };
-
-    var doWhenAllFrameworksLoaded = function () {
-        // TBD
-        console.log("READY");
-    }
-
-
-    return {
-        log: log,
-        initialize: initialize,
-    }
-
-}(jQuery));
-
-
-
-//var app = {
 
 //    // APPLICATION CONSTRUCTOR
-//    initialize: function () {
-//        console.log("initialize");
-//        this.deviceReadyDeferred = $.Deferred();
-//        this.jqmReadyDeferred = $.Deferred();
+//    var initialize = function () {
+//        log("initialize");
 
-//        this.bindEvents();
-//    },
+
+//        bindEvents();
+//    };
+
 
 //    // BIND EVENT LISTENERS
 //    //
 //    // Bind any events that are required on startup. Common events are:
 //    // 'load', 'deviceready', 'offline', and 'online'.
-//    bindEvents: function () {
-//        console.log("bindEvents");
-//        document.addEventListener('deviceReady', this.onDeviceReady, false);
+//    var bindEvents = function () {
+//        log("bindEvents");
+//        document.addEventListener('deviceReady', onDeviceReady, false);
 
 
 //        $(document).on("mobileinit", function () {
-//            console.log("mobileinit");
-//            this.jqmReadyDeferred.resolve();
+//            log("mobileinit");
+//            jqmReadyDeferred.resolve();
 //        });
 
-//        $.when(this.deviceReadyDeferred, this.jqmReadyDeferred).then(this.doWhenAllFrameworksLoaded);
-//        console.log("bindEvents - ok");
-//    },
+//        $.when(deviceReadyDeferred, jqmReadyDeferred).then(doWhenAllFrameworksLoaded);
+//        log("bindEvents - ok");
+//    };
 
 //    // DEVICEREADY EVENT HANDLER
 //    //
 //    // The scope of 'this' is the event. In order to call the 'receivedEvent'
 //    // function, we must explicitly call 'app.receivedEvent(...);'
-//    onDeviceReady: function () {
-//        console.log("onDeviceReady");
+//    var onDeviceReady = function () {
+//        log("onDeviceReady");
 
-//        this.deviceReadyDeferred.resolve();
+//        deviceReadyDeferred.resolve();
 
-//        app.receivedEvent('deviceready');
-
-        
-        
+//        receivedEvent('deviceready');
 
 
 //        //var element = document.getElementById('deviceProperties');
@@ -147,10 +62,11 @@
 
 //        //}
 
-//    },
+
+//    };
 
 //    // UPDATE DOM ON A RECEIVED EVENT
-//    receivedEvent: function (id) {
+//    var receivedEvent = function (id) {
 //        //var parentElement = document.getElementById(id);
 //        //var listeningElement = parentElement.querySelector('.listening');
 //        //var receivedElement = parentElement.querySelector('.received');
@@ -159,15 +75,105 @@
 //        //receivedElement.setAttribute('style', 'display:block;');
 
 
-//        //console.log('Received Event: ' + id);
-//    },
+//        //log('Received Event: ' + id);
+//    };
 
-//    doWhenAllFrameworksLoaded: function () {
+//    var doWhenAllFrameworksLoaded = function () {
 //        // TBD
 //        console.log("READY");
 //    }
 
-//};
+
+//    return {
+//        log: log,
+//        initialize: initialize,
+//    }
+
+//}(jQuery));
+
+
+
+var app = {
+
+    log: function (message) {
+        if (window && window.console && window.console.log) {
+            window.console.log(message);
+        }
+    },
+
+    // APPLICATION CONSTRUCTOR
+    initialize: function () {
+        this.log("initialize");
+        this.deviceReadyDeferred = $.Deferred();
+        this.jqmReadyDeferred = $.Deferred();
+
+        this.bindEvents();
+    },
+
+    // BIND EVENT LISTENERS
+    //
+    // Bind any events that are required on startup. Common events are:
+    // 'load', 'deviceready', 'offline', and 'online'.
+    bindEvents: function () {
+        this.log("bindEvents");
+        document.addEventListener('deviceReady', this.onDeviceReady, false);
+
+
+        $(document).on("mobileinit", function () {
+            this.log("mobileinit");
+            this.jqmReadyDeferred.resolve();
+        });
+
+        $.when(this.deviceReadyDeferred, this.jqmReadyDeferred).then(this.doWhenAllFrameworksLoaded);
+        this.log("bindEvents - ok");
+    },
+
+    // DEVICEREADY EVENT HANDLER
+    //
+    // The scope of 'this' is the event. In order to call the 'receivedEvent'
+    // function, we must explicitly call 'app.receivedEvent(...);'
+    onDeviceReady: function () {
+        this.log("onDeviceReady");
+
+        this.deviceReadyDeferred.resolve();
+
+        app.receivedEvent('deviceready');
+
+        
+        
+
+
+        //var element = document.getElementById('deviceProperties');
+        //if (element) {
+        //    element.innerHTML = 'Device Name: ' + device.name + '<br />' +
+        //                        'Device Cordova: ' + device.cordova + '<br />' +
+        //                        'Device Platform: ' + device.platform + '<br />' +
+        //                        'Device UUID: ' + device.uuid + '<br />' +
+        //                        'Device Version: ' + device.version + '<br />';
+
+        //}
+
+    },
+
+    // UPDATE DOM ON A RECEIVED EVENT
+    receivedEvent: function (id) {
+        //var parentElement = document.getElementById(id);
+        //var listeningElement = parentElement.querySelector('.listening');
+        //var receivedElement = parentElement.querySelector('.received');
+
+        //listeningElement.setAttribute('style', 'display:none;');
+        //receivedElement.setAttribute('style', 'display:block;');
+
+
+        //log('Received Event: ' + id);
+    },
+
+    doWhenAllFrameworksLoaded: function () {
+        // TBD
+        this.log("READY");
+    },
+
+};
 
 
 
